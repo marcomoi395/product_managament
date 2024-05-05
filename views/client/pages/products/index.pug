@@ -1,4 +1,18 @@
 extends ../../layout/default
+include ../../mixins/box-head
 
 block main
-    h1 Products
+    .container
+        .row
+            .col-12
+                +box-head("CD")
+
+        .row
+            .col-4.mb-3
+                .product-item
+                    .inner-image
+                        img(src="/images/99percent.png", alt="99%")
+                    .inner-content
+                        .inner-title 99%
+                        .inner-author MCK
+                        .inner-price 30$
