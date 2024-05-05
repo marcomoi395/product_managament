@@ -1,3 +1,46 @@
-.test {
-    
+.header {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
 }
+
+.header .inner-logo img {
+    width: 100px;
+    max-height: 100px;
+    max-width: 100%;
+}
+
+.header .inner-menu > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.header .inner-menu > ul > li {
+    color: red;
+    margin-left: 80px;
+
+}
+
+.inner-menu ul li a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.inner-menu ul li a:hover {
+    color: #9d9d9d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer {
+    background: #ddd;
+    color: #000000;
+    text-align: center;
+    padding: 10px;
+}
+
