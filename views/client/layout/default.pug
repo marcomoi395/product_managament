@@ -2,6 +2,7 @@ doctype html
 html
     head
         title #{pageTitle}
+        link(rel="stylesheet", href="/css/style.css")
 
     body
         include ../partials/header
@@ -9,3 +10,5 @@ html
         block main
 
         include ../partials/footer
+
+        script(src="/js/script.js")
