@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const productScheme = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     title: String,
+    author: String,
     description: String,
     price: Number,
     discountPercentage: Number,
@@ -12,6 +13,6 @@ const productScheme = new mongoose.Schema({
     deleted: Boolean
 });
 
-const Product = mongoose.model("Product", productScheme, "products");
+const Product = mongoose.model("Product", productSchema, "products");
 
 module.exports = Product;

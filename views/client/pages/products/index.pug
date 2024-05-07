@@ -8,11 +8,13 @@ block main
                 +box-head("CD")
 
         .row
-            .col-4.mb-3
-                .product-item
-                    .inner-image
-                        img(src="/images/99percent.png", alt="99%")
-                    .inner-content
-                        .inner-title 99%
-                        .inner-author MCK
-                        .inner-price 30$
+            each item in products
+                .col-4.mb-3
+                    .product-item
+                        .inner-image
+                            img(src=item.thumbnail
+                            , alt=item.title)
+                        .inner-content
+                            .inner-title #{item.title}
+                            .inner-author #{item.author}
+                            .inner-price #{item.price}$
