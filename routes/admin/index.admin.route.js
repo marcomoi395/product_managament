@@ -1,8 +1,10 @@
 const productRouter = require("./product.admin.route");
 const dashboardRouter = require("./dashboard.admin.route");
+const systemConfig = require("../../config/system");
 
 module.exports = (app) => {
-    app.use("/admin/", dashboardRouter);
+    const PATH_ADMIN = systemConfig.prefixAdmin;
+    app.use(PATH_ADMIN, dashboardRouter);
 
-    app.use("/admin/products", productRouter);
+    app.use(PATH_ADMIN + "/products", productRouter);
 };
