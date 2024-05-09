@@ -1,4 +1,37 @@
 extends ../../layout/default
 
 block main
-    h3 Products
+    h4.inner-content #{pageTitle}
+
+    table.table.table-hover.table-sm
+        thead
+            tr(class="inner-content")
+                th STT
+                th Hình ảnh
+                th Tên
+                th Tác giả
+                th Giá
+                th Trạng thái
+                th Hành động
+        each item, index in products
+            tbody
+                tr
+                    td(class="inner-content") #{index + 1}
+                    td
+                        img(
+                            src=item.thumbnail
+                            alt=item.title
+                            width="50px"
+                            height="auto"
+                        )
+                    td(class="inner-content") #{item.title}
+                    td(class="inner-content") #{item.author}
+                    td(class="inner-content") #{item.price}$
+                    td
+                        if(item.status === "active")
+                            a(href="#" class="btn btn-custom status-active") Hoạt động
+                        else
+                            a(href="#" class="btn btn-custom status-unactive") Dừng
+                    td
+                        button.change(class="btn btn-custom edit") Sửa
+                        button.delete(class="btn btn-custom delete") Xóa

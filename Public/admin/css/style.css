@@ -81,3 +81,75 @@
     font-size: 16.5px;
     color: #999999;
 }
+
+.btn-custom {
+    border-radius: 1px;
+    margin: 5px;
+}
+
+.btn-custom.status-active {
+    padding: 5px 15px;
+    margin: 10px;
+    font-family: Merriweather, serif;
+    font-size: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: #000000;
+    border-radius: 50px;
+}
+
+.btn-custom.status-active:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.btn-custom.status-unactive {
+    padding: 5px 28px;
+    margin: 10px;
+    font-family: Merriweather, serif;
+    font-size: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-color: #000000;
+    border-radius: 50px;
+}
+
+.btn-custom.status-unactive:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-color: #464646;
+    color: white;
+}
+
+.btn-custom.edit {
+    font-family: Merriweather, serif;
+    padding: 5px;
+    font-size: 15px;
+    background-color: #ffffff;
+    border-color: #484848;
+    border-width: 2px;
+    color: #000000;
+}
+
+.btn-custom.edit:hover {
+    background-color: #4f4f4f;
+    color: #fff;
+}
+
+.btn-custom.delete {
+    font-family: Merriweather, serif;
+    padding: 5px;
+    font-size: 15px;
+    background-color: #3f3f3f;
+    color: #fff;
+    border-width: 2px;
+}
+
+.btn-custom.delete:hover {
+    font-family: Merriweather, serif;
+    background-color: #ffffff;
+    border-color: #484848;
+    border-width: 2px;
+}
+
+.inner-content {
+    font-family: Merriweather, serif;
+}
