@@ -1,14 +1,8 @@
 header.header
-    .container
+    .container-fluid
         .row.align-items-center
             .col-3
                 .inner-logo
-                    a(href="/")
+                    a(href=`${prefixAdmin}`)
                         img(src="/images/logo.jpg", alt="Logo")
             .col-9
-                .inner-menu
-                    ul
-                        li
-                            a(href='/') Dashboard
-                        li
-                            a(href='/products') Products

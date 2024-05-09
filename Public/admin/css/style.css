@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Briem+Hand:wght@100..900&family=Jersey+10&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+
+.header {
+    background: #ffffff;
+    padding: 10px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.header .inner-logo img {
+    width: 80px;
+    max-height: 80px;
+    max-width: 100%;
+}
+
+.header .inner-menu > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.header .inner-menu > ul > li {
+    margin-left: 50px;
+
+}
+
+.inner-menu ul li a {
+    font-family: "Briem Hand", serif;
+    font-size: 18px;
+    color: #4e4e4e;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+/*Body*/
+.body .sider {
+    width: 150px;
+    background-color: #1d1d1d;
+    color: #ffffff;
+    height: calc(100vh - 45px);
+    position: fixed;
+    top: 45px;
+    left: 0;
+}
+
+.body .main {
+    margin: 15px;
+    position: relative;
+    color: #1d1d1d;
+    left: 150px;
+    width: calc(100% - 180px);
+}
+
+
+/*sider*/
+.sider .inner-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sider .inner-menu ul li a {
+    font-family: "Merriweather", serif;
+    font-size: 16px;
+    color: #e5e5e5;
+    display: block;
+    padding: 10px 10px;
+    border-bottom: 1px solid #3c3c3c;
+}
+
+.sider .inner-menu ul li a:hover {
+    font-size: 16.5px;
+    color: #999999;
+}
