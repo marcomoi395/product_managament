@@ -38,6 +38,14 @@ module.exports.index = async (req, res) => {
     if (req.query.status) {
         find.status = req.query.status;
     }
+
+    let keyword = "";
+
+    if (req.query.keyword) {
+        keyword = req.query.keyword;
+
+        find.title = new RegExp(keyword, "i");
+    }
     // Filter status END
 
     const products = await Product.find(find);
@@ -45,6 +53,7 @@ module.exports.index = async (req, res) => {
     res.render("admin/pages/products/index", {
         pageTitle: "Products",
         products: products,
-        filterStatus: filterStatus
+        filterStatus: filterStatus,
+        title: keyword
     });
 };

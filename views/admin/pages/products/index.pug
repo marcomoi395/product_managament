@@ -5,18 +5,33 @@ block main
 
     .card.mb-3
         .card-header Bộ lọc và tìm kiếm
-        .row
-            .col-6
-                .card-body
+        .card-body
+            .row
+                .col-6
                     each item in filterStatus
                         button(
                             class= `btn btn-light me-md-2 ${item.class}`,
                             button-status=item.status
                         ) #{item.name}
-            .col-6
+                .col-6
+                    form(id="form-search")
+                        .input-group
+                            input(
+                                type="text"
+                                placeholder="Nhập từ khóa"
+                                name="keyword"
+                                class="form-control"
+                                value=title
+                            )
+                            .input-group-text
+                                button(
+                                    class="btn btn-light"
+                                    type="submit"
+                                ) Tìm
 
 
-    .card
+
+    .card.mb-3
         .card-header Danh sách sản phẩm
             .card-body
                 table.table.table-hover.table-sm
