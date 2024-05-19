@@ -1,4 +1,6 @@
 extends ../../layout/default
+include ../../mixins/filter-status
+include ../../mixins/search
 
 block main
     h2.inner-content #{pageTitle}
@@ -8,61 +10,42 @@ block main
         .card-body
             .row
                 .col-6
-                    each item in filterStatus
-                        button(
-                            class= `btn btn-light me-md-2 ${item.class}`,
-                            button-status=item.status
-                        ) #{item.name}
+                    +filter-status(filterStatus)
                 .col-6
-                    form(id="form-search")
-                        .input-group
-                            input(
-                                type="text"
-                                placeholder="Nhập từ khóa"
-                                name="keyword"
-                                class="form-control"
-                                value=title
-                            )
-                            .input-group-text
-                                button(
-                                    class="btn btn-light"
-                                    type="submit"
-                                ) Tìm
-
-
-
+                    +search(title)
+                    
     .card.mb-3
         .card-header Danh sách sản phẩm
-            .card-body
-                table.table.table-hover.table-sm
-                    thead
-                        tr(class="inner-content")
-                            th STT
-                            th Hình ảnh
-                            th Tên
-                            th Tác giả
-                            th Giá
-                            th Trạng thái
-                            th Hành động
-                    each item, index in products
-                        tbody
-                            tr
-                                td(class="inner-content") #{index + 1}
-                                td
-                                    img(
-                                        src=item.thumbnail
-                                        alt=item.title
-                                        width="50px"
-                                        height="auto"
-                                    )
-                                td(class="inner-content") #{item.title}
-                                td(class="inner-content") #{item.author}
-                                td(class="inner-content") #{item.price}$
-                                td
-                                    if(item.status === "active")
-                                        a(href="#" class="btn btn-custom status-active") Hoạt động
-                                    else
-                                        a(href="#" class="btn btn-custom status-unactive") Dừng
-                                td
-                                    button.change(class="btn btn-custom edit") Sửa
-                                    button.delete(class="btn btn-custom delete") Xóa
+        .card-body
+            table.table.table-hover.table-sm
+                thead
+                    tr(class="inner-content")
+                        th STT
+                        th Hình ảnh
+                        th Tên
+                        th Tác giả
+                        th Giá
+                        th Trạng thái
+                        th Hành động
+                each item, index in products
+                    tbody
+                        tr
+                            td(class="inner-content") #{index + 1}
+                            td
+                                img(
+                                    src=item.thumbnail
+                                    alt=item.title
+                                    width="50px"
+                                    height="auto"
+                                )
+                            td(class="inner-content") #{item.title}
+                            td(class="inner-content") #{item.author}
+                            td(class="inner-content") #{item.price}$
+                            td
+                                if(item.status === "active")
+                                    a(href="#" class="btn btn-custom status-active") Hoạt động
+                                else
+                                    a(href="#" class="btn btn-custom status-unactive") Dừng
+                            td
+                                button.change(class="btn btn-custom edit") Sửa
+                                button.delete(class="btn btn-custom delete") Xóa

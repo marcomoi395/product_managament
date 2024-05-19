@@ -1,0 +1,6 @@
+mixin filter-status(filterStatus)
+    each item in filterStatus
+        button(
+            class= `btn btn-light me-md-2 ${item.class}`,
+            button-status=item.status
+        ) #{item.name}
