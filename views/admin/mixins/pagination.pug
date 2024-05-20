@@ -1,0 +1,39 @@
+mixin pagination(pagination)
+    nav(aria-label = "...")
+        ul(class="pagination")
+            if(pagination.currentPageNumber === 1)
+                li(class="page-item disabled")
+                    button(class="page-link"
+                        button-pagination=pagination.currentPageNumber - 1
+                    ) Previous
+            else
+                li(class="page-item")
+                    button(class="page-link"
+                        button-pagination=pagination.currentPageNumber - 1
+                    ) Previous
+
+            -for (let i = 1; i <= pagination.numberOfPage; i++)
+                    if(i === pagination.currentPageNumber)
+                        li(class="page-item")
+                            button(
+                                class="page-link active"
+                                button-pagination=i
+                            ) #{i}
+                    else
+                        li(class="page-item")
+                             button(
+                                 class="page-link"
+                                 button-pagination=i
+                             ) #{i}
+
+            if(pagination.currentPageNumber === pagination.numberOfPage)
+                li(class="page-item disabled")
+                    button(class="page-link"
+                        button-pagination=pagination.currentPageNumber + 1
+                    ) Next
+            else
+                li(class="page-item")
+                    button(class="page-link"
+                        button-pagination=pagination.currentPageNumber + 1
+                    ) Next
+

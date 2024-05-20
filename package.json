@@ -15,7 +15,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.3.3",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "sass": "^1.77.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

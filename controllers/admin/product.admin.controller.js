@@ -1,7 +1,8 @@
 // GET /admin/products
 const Product = require("../../models/product.model");
 const filterStatus = require("../../miscs/filter-status");
-const objectSearch = require("../../miscs/search");
+const search = require("../../miscs/search");
+const pagination = require("../../miscs/pagination");
 
 module.exports.index = async (req, res) => {
     let find = {
@@ -15,16 +16,20 @@ module.exports.index = async (req, res) => {
     // Filter status END
 
     //Search
-    Object.assign(find, objectSearch(req).searchCondition);
+    Object.assign(find, search(req).searchCondition);
     //Search END
 
+    // Pagination
+    let objectPagination = await pagination(req, Product, find);
+    // Pagination END
 
-    const products = await Product.find(find);
+    const products = await Product.find(find).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
 
     res.render("admin/pages/products/index", {
         pageTitle: "Products",
         products: products,
         filterStatus: filterStatus(req),
-        title: objectSearch(req).keyword
+        title: search(req).keyword,
+        pagination: objectPagination
     });
 };

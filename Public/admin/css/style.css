@@ -83,12 +83,12 @@
 }
 
 .btn-custom {
+    justify-content: center;
     border-radius: 1px;
     margin: 5px;
 }
 
 .btn-custom.status-active {
-    padding: 5px 15px;
     margin: 10px;
     font-family: Merriweather, serif;
     font-size: 10px;
@@ -103,7 +103,6 @@
 }
 
 .btn-custom.status-unactive {
-    padding: 5px 28px;
     margin: 10px;
     font-family: Merriweather, serif;
     font-size: 10px;
@@ -125,7 +124,8 @@
     font-size: 15px;
     background-color: #ffffff;
     border-color: #484848;
-    border-width: 2px;
+    border-width: 1px;
+    border-radius: 12px;
     color: #000000;
 }
 
@@ -140,14 +140,17 @@
     font-size: 15px;
     background-color: #3f3f3f;
     color: #fff;
-    border-width: 2px;
+    border-width: 1px;
+    border-radius: 12px;
 }
 
 .btn-custom.delete:hover {
     font-family: Merriweather, serif;
     background-color: #ffffff;
+    color: #313131;
     border-color: #484848;
-    border-width: 2px;
+    border-width: 1px;
+    border-radius: 12px;
 }
 
 .inner-content {

@@ -1,32 +1,33 @@
 extends ../../layout/default
 include ../../mixins/filter-status
 include ../../mixins/search
+include ../../mixins/pagination
 
 block main
     h2.inner-content #{pageTitle}
 
     .card.mb-3
-        .card-header Bộ lọc và tìm kiếm
+        .card-header Filters and Search
         .card-body
             .row
                 .col-6
                     +filter-status(filterStatus)
                 .col-6
                     +search(title)
-                    
+
     .card.mb-3
-        .card-header Danh sách sản phẩm
+        .card-header List of products
         .card-body
             table.table.table-hover.table-sm
                 thead
                     tr(class="inner-content")
-                        th STT
-                        th Hình ảnh
-                        th Tên
-                        th Tác giả
-                        th Giá
-                        th Trạng thái
-                        th Hành động
+                        th No
+                        th Picture
+                        th Title
+                        th Author
+                        th Price
+                        th Status
+                        th Act
                 each item, index in products
                     tbody
                         tr
@@ -37,15 +38,18 @@ block main
                                     alt=item.title
                                     width="50px"
                                     height="auto"
+                                    style="border-radius: 10%"
                                 )
                             td(class="inner-content") #{item.title}
                             td(class="inner-content") #{item.author}
                             td(class="inner-content") #{item.price}$
                             td
                                 if(item.status === "active")
-                                    a(href="#" class="btn btn-custom status-active") Hoạt động
+                                    a(href="#" class="btn btn-custom status-active") Active
                                 else
-                                    a(href="#" class="btn btn-custom status-unactive") Dừng
+                                    a(href="#" class="btn btn-custom status-unactive") Inactive
                             td
-                                button.change(class="btn btn-custom edit") Sửa
-                                button.delete(class="btn btn-custom delete") Xóa
+                                button.change(class="btn btn-custom edit") Modify
+                                button.delete(class="btn btn-custom delete") Delete
+
+    +pagination(pagination)
