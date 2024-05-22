@@ -102,7 +102,7 @@
     color: white;
 }
 
-.btn-custom.status-unactive {
+.btn-custom.status-inactive {
     margin: 10px;
     font-family: Merriweather, serif;
     font-size: 10px;
@@ -112,7 +112,7 @@
     border-radius: 50px;
 }
 
-.btn-custom.status-unactive:hover {
+.btn-custom.status-inactive:hover {
     background-color: rgba(0, 0, 0, 0.2);
     border-color: #464646;
     color: white;

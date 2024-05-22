@@ -18,21 +18,21 @@ block main
     .card.mb-3
         .card-header List of products
         .card-body
-            table.table.table-hover.table-sm
+            table.table.table-hover.table-sm.align-middle
                 thead
                     tr(class="inner-content")
-                        th No
-                        th Picture
+                        th.text-center No
+                        th.text-center Picture
                         th Title
-                        th Author
-                        th Price
-                        th Status
-                        th Act
+                        th.text-center Author
+                        th.text-center Price
+                        th.text-center Status
+                        th.text-center Act
                 each item, index in products
                     tbody
                         tr
-                            td(class="inner-content") #{index + 1}
-                            td
+                            td.text-center(class="inner-content") #{index + 1}
+                            td.text-center
                                 img(
                                     src=item.thumbnail
                                     alt=item.title
@@ -41,15 +41,24 @@ block main
                                     style="border-radius: 10%"
                                 )
                             td(class="inner-content") #{item.title}
-                            td(class="inner-content") #{item.author}
-                            td(class="inner-content") #{item.price}$
-                            td
+                            td.text-center(class="inner-content") #{item.author}
+                            td.text-center(class="inner-content") #{item.price}$
+                            td.text-center
                                 if(item.status === "active")
-                                    a(href="#" class="btn btn-custom status-active") Active
+                                    b(class="btn btn-custom status-active" data-status=item.status data-id=item.id button-change-status) Active
                                 else
-                                    a(href="#" class="btn btn-custom status-unactive") Inactive
-                            td
+                                    b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
+                            td.text-center
                                 button.change(class="btn btn-custom edit") Modify
                                 button.delete(class="btn btn-custom delete") Delete
 
     +pagination(pagination)
+
+    form(
+        action=""
+        method="POST"
+        id="form-change-status"
+        data-path=`${prefixAdmin}/products/change-status`
+    )
+
+    script(src="/admin/js/product.js")
