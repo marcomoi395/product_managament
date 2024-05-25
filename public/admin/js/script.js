@@ -1,4 +1,4 @@
-// button-status
+// Button status
 const buttonStatus = document.querySelectorAll("[button-status]");
 if (buttonStatus) {
     buttonStatus.forEach(button => {
@@ -17,7 +17,7 @@ if (buttonStatus) {
         });
     });
 }
-// button-status END
+// Button status END
 
 //Form Search
 const formSearch = document.querySelector("#form-search");
@@ -54,4 +54,5 @@ if (pagination) {
     });
 }
 //Pagination END
+
 

@@ -68,3 +68,27 @@ if (formChangeStatusMulti) {
     });
 }
 // Form Change Multi End
+
+// Delete Product
+const deleteProduct = document.querySelectorAll("[button-delete-product]");
+
+if (deleteProduct.length > 0) {
+    const formDeleteProduct = document.querySelector("#form-delete-product");
+    const path = formDeleteProduct.getAttribute("data-path");
+
+    deleteProduct.forEach(button => {
+        button.addEventListener("click", (event) => {
+            let isConfirm = window.confirm("Bạn có chắc là muốn xóa không???");
+            if (isConfirm) {
+                let idProduct = button.getAttribute("data-id");
+
+                const action = path + `/${idProduct}?_method=PATCH`;
+
+                formDeleteProduct.action = action;
+                formDeleteProduct.submit();
+            }
+        });
+    });
+}
+// Delete Product End
+

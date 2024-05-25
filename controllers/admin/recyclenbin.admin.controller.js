@@ -1,4 +1,4 @@
-// GET /admin/products
+// GET /admin/recycle-bin
 const Product = require("../../models/product.model");
 const filterStatus = require("../../miscs/filter-status");
 const search = require("../../miscs/search");
@@ -7,7 +7,7 @@ const pagination = require("../../miscs/pagination");
 // GET /
 module.exports.index = async (req, res) => {
     let find = {
-        deleted: false
+        deleted: true
     };
 
     // Filter status
@@ -26,8 +26,8 @@ module.exports.index = async (req, res) => {
 
     const products = await Product.find(find).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
 
-    res.render("admin/pages/products/index", {
-        pageTitle: "Products",
+    res.render("admin/pages/recycle_bin/index", {
+        pageTitle: "Recycle Bin",
         products: products,
         filterStatus: filterStatus(req),
         title: search(req).keyword,
@@ -35,25 +35,11 @@ module.exports.index = async (req, res) => {
     });
 };
 
-// PATCH /change-status/:status/:id
-module.exports.changeStatus = async (req, res) => {
-    await Product.updateOne({_id: req.params.id}, {status: req.params.status});
-    res.redirect("back");
-};
 
-// PATCH /change-status-multi
-module.exports.changeStatusMulti = async (req, res) => {
-    let statusChange = req.body.type.toLowerCase();
-    let ids = req.body.ids.split(", ");
-    console.log(statusChange);
-    await Product.updateMany({_id: {$in: ids}}, {$set: {status: statusChange}});
-    res.redirect("back");
-};
-
-// PATCH /delete-product
-module.exports.deleteProduct = async (req, res) => {
-    await Product.updateOne({_id: req.params.id}, {deleted: true});
-    await Product.updateOne({_id: req.params.id}, {deletedAt: new Date()});
+// PATCH /restore-product
+module.exports.restoreProduct = async (req, res) => {
+    await Product.updateOne({_id: req.params.id}, {deleted: false});
+    await Product.updateOne({_id: req.params.id}, {$unset: {deletedAt: ''}});
 
     res.redirect("back");
 };

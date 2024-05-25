@@ -56,20 +56,16 @@ block main
                                 else
                                     b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
                             td.text-center
-                                button.change(class="btn btn-custom edit") Modify
-                                button.delete(class="btn btn-custom delete" button-delete-product data-id=item.id) Delete
+                                button.delete(class="btn btn-custom delete" button-restore-product data-id=item.id) Restore
 
     +pagination(pagination)
     +form-change-status
-
     form(
         action=""
         method="POST"
-        id="form-delete-product"
-        data-path=`${prefixAdmin}/products/delete-product`
+        id="form-restore-product"
+        data-path=`${prefixAdmin}/recycle-bin/restore-product`
     )
 
-
-    //
-    //script(src="/admin/js/script.js")
     script(src="/admin/js/product.js")
+    script(src="/admin/js/recycle_bin.js")
