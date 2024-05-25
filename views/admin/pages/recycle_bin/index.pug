@@ -2,8 +2,9 @@ extends ../../layout/default
 include ../../mixins/filter-status
 include ../../mixins/search
 include ../../mixins/pagination
-include ../../mixins/form-change-status-multi
+include ../../mixins/form-change-multi
 include ../../mixins/form-change-status
+include ../../mixins/form-change-multi-recycle-bin
 
 block main
     h2.inner-content #{pageTitle}
@@ -13,14 +14,14 @@ block main
         .card-body
             .row
                 .col-6
-                    +filter-status(filterStatus)
+                    //+filter-status(filterStatus)
                 .col-6
                     +search(title)
 
     .card.mb-3
         .card-header List of products
         .card-body
-            +form-change-status-multi
+            +form-change-multi-recycle-bin
             table(class="table table-hover table-sm align-middle" checkbox-multi)
                 thead
                     tr(class="inner-content")
@@ -31,7 +32,6 @@ block main
                         th Title
                         th.text-center Author
                         th.text-center Price
-                        th.text-center Status
                         th.text-center Act
                 each item, index in products
                     tbody
@@ -39,7 +39,7 @@ block main
                             td.text-center
                                 input(class="form-check-input" type="checkbox" name="check-id" value=item.id)
                             td.text-center(class="inner-content") #{index + 1}
-                            td
+                            td.text-center
                                 img(
                                     src=item.thumbnail
                                     alt=item.title
@@ -51,15 +51,10 @@ block main
                             td.text-center(class="inner-content") #{item.author}
                             td.text-center(class="inner-content") #{item.price}$
                             td.text-center
-                                if(item.status === "active")
-                                    b(class="btn btn-custom status-active" data-status=item.status data-id=item.id button-change-status) Active
-                                else
-                                    b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
-                            td.text-center
                                 button.delete(class="btn btn-custom delete" button-restore-product data-id=item.id) Restore
 
     +pagination(pagination)
-    +form-change-status
+
     form(
         action=""
         method="POST"

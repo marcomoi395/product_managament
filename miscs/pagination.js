@@ -1,7 +1,7 @@
 module.exports = async (req, Product, find) => {
     let objectPagination = {
         currentPageNumber: 1,
-        numberOfProductsPerPage: 5
+        numberOfProductsPerPage: 8
     };
 
     if (req.query.page) {

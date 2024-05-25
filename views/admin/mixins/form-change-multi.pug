@@ -1,6 +1,6 @@
-mixin form-change-status-multi()
+mixin form-change-multi()
     form(
-        action=`${prefixAdmin}/products/change-status-multi?_method=PATCH`
+        action=`${prefixAdmin}/products/change-multi?_method=PATCH`
         method="POST"
         form-change-status-multi
     )
@@ -9,8 +9,9 @@ mixin form-change-status-multi()
                 .input-group.mb-3
                     select(name="type" class="form-select")
                         option(selected disabled) Select
-                        option(value=active) Active
-                        option(value=inactive) Inactive
+                        option(value="active") Active
+                        option(value="inactive") Inactive
+                        option(value="delete") Delete
                     input(
                         type="text"
                         name="ids"

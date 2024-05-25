@@ -6,6 +6,7 @@ if (buttonStatus) {
 
         button.addEventListener("click", () => {
             const status = button.getAttribute("button-status");
+            url.searchParams.delete("page");
 
             if (status) {
                 url.searchParams.set("status", status);

@@ -2,7 +2,7 @@ extends ../../layout/default
 include ../../mixins/filter-status
 include ../../mixins/search
 include ../../mixins/pagination
-include ../../mixins/form-change-status-multi
+include ../../mixins/form-change-multi
 include ../../mixins/form-change-status
 
 block main
@@ -20,7 +20,7 @@ block main
     .card.mb-3
         .card-header List of products
         .card-body
-            +form-change-status-multi
+            +form-change-multi
             table(class="table table-hover table-sm align-middle" checkbox-multi)
                 thead
                     tr(class="inner-content")

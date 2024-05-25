@@ -41,12 +41,20 @@ module.exports.changeStatus = async (req, res) => {
     res.redirect("back");
 };
 
-// PATCH /change-status-multi
-module.exports.changeStatusMulti = async (req, res) => {
-    let statusChange = req.body.type.toLowerCase();
+// PATCH /change-multi
+module.exports.changeMulti = async (req, res) => {
+    let statusChange = req.body.type;
     let ids = req.body.ids.split(", ");
-    console.log(statusChange);
-    await Product.updateMany({_id: {$in: ids}}, {$set: {status: statusChange}});
+    if (statusChange === "delete") {
+        await Product.updateMany({_id: {$in: ids}}, {$set: {deleted: true}});
+        await Product.updateMany({_id: {$in: ids}}, {$set: {deletedAt: new Date()}});
+
+    } else if (statusChange === "restore") {
+        await Product.updateMany({_id: {$in: ids}}, {$set: {deleted: false}});
+        await Product.updateMany({_id: {$in: ids}}, {$unset: {deletedAt: ''}});
+
+    } else
+        await Product.updateMany({_id: {$in: ids}}, {$set: {status: statusChange}});
     res.redirect("back");
 };
 

@@ -6,7 +6,7 @@ router.get("/", controller.index);
 
 router.patch("/change-status/:status/:id", controller.changeStatus);
 
-router.patch("/change-status-multi", controller.changeStatusMulti);
+router.patch("/change-multi", controller.changeMulti);
 
 router.patch("/delete-product/:id", controller.deleteProduct);
 

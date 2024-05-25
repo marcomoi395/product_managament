@@ -1,0 +1,20 @@
+mixin form-change-multi-recycle-bin()
+    form(
+        action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+        method="POST"
+        form-change-status-multi
+    )
+        .row.mb-3
+            .col-3
+                .input-group.mb-3
+                    select(name="type" class="form-select")
+                        option(selected disabled) Select
+                        option(value="restore") Restore
+                    input(
+                        type="text"
+                        name="ids"
+                        value=""
+                        class="form-control"
+                        hidden
+                    )
+                    button(type="submit" class="input-group-text") Apply

@@ -1,6 +1,6 @@
 // Change Status
 const status = document.querySelectorAll("[button-change-status]");
-if (status) {
+if (status.length > 0) {
     const formChangeStatus = document.querySelector("#form-change-status");
     const path = formChangeStatus.getAttribute("data-path");
 
@@ -10,16 +10,14 @@ if (status) {
             let idProduct = button.getAttribute("data-id");
             let changeStatus = currentStatus === "active" ? "inactive" : "active";
 
-            const action = path + `/${changeStatus}/${idProduct}?_method=PATCH`;
-
-            formChangeStatus.action = action;
+            formChangeStatus.action = path + `/${changeStatus}/${idProduct}?_method=PATCH`;
             formChangeStatus.submit();
         });
     });
 }
 // Change Status End
 
-// CheckBox All
+// Check Box All
 const checkBoxMulti = document.querySelector("[checkbox-multi]");
 if (checkBoxMulti) {
     const checkBoxId = document.querySelectorAll('[name="check-id"]');
@@ -44,7 +42,7 @@ if (checkBoxMulti) {
         });
     });
 }
-// CheckBox All End
+// Check Box All END
 
 // Form Change Multi
 const formChangeStatusMulti = document.querySelector("[form-change-status-multi]");
@@ -54,6 +52,20 @@ if (formChangeStatusMulti) {
         const checkBoxChecked = checkBoxMulti.querySelectorAll('input[name="check-id"]:checked');
         const inputIds = document.querySelector('[name="ids"]');
         const statusSelect = document.querySelector('[name="type"]');
+        if (statusSelect.value === "delete") {
+            const isConfirm = window.confirm("Bạn có chắc là muốn xóa không???");
+            if (!isConfirm) {
+                return;
+            }
+        }
+
+        if (statusSelect.value === "restore") {
+            const isConfirm = window.confirm("Bạn có chắc là muốn khôi phục không???");
+            if (!isConfirm) {
+                return;
+            }
+        }
+
         if (checkBoxChecked.length > 0 && statusSelect.value !== "Select") {
             let ids = [];
             checkBoxChecked.forEach((e) => {
@@ -82,9 +94,7 @@ if (deleteProduct.length > 0) {
             if (isConfirm) {
                 let idProduct = button.getAttribute("data-id");
 
-                const action = path + `/${idProduct}?_method=PATCH`;
-
-                formDeleteProduct.action = action;
+                formDeleteProduct.action = path + `/${idProduct}?_method=PATCH`;
                 formDeleteProduct.submit();
             }
         });
