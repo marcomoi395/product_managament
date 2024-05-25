@@ -10,8 +10,9 @@ module.exports = (req) => {
             $or: [
                 {title: new RegExp(objectSearch.keyword, "i")},
                 {author: new RegExp(objectSearch.keyword, "i")}
-            ]
+            ],
         };
+
     }
 
     return objectSearch;

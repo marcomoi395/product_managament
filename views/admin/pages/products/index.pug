@@ -2,6 +2,8 @@ extends ../../layout/default
 include ../../mixins/filter-status
 include ../../mixins/search
 include ../../mixins/pagination
+include ../../mixins/form-change-status-multi
+include ../../mixins/form-change-status
 
 block main
     h2.inner-content #{pageTitle}
@@ -18,9 +20,12 @@ block main
     .card.mb-3
         .card-header List of products
         .card-body
-            table.table.table-hover.table-sm.align-middle
+            +form-change-status-multi
+            table(class="table table-hover table-sm align-middle" checkbox-multi)
                 thead
                     tr(class="inner-content")
+                        th.text-center
+                            input(class="form-check-input" type="checkbox" name="checkall")
                         th.text-center No
                         th.text-center Picture
                         th Title
@@ -31,8 +36,10 @@ block main
                 each item, index in products
                     tbody
                         tr
-                            td.text-center(class="inner-content") #{index + 1}
                             td.text-center
+                                input(class="form-check-input" type="checkbox" name="check-id" value=item.id)
+                            td.text-center(class="inner-content") #{index + 1}
+                            td
                                 img(
                                     src=item.thumbnail
                                     alt=item.title
@@ -53,12 +60,8 @@ block main
                                 button.delete(class="btn btn-custom delete") Delete
 
     +pagination(pagination)
+    +form-change-status
 
-    form(
-        action=""
-        method="POST"
-        id="form-change-status"
-        data-path=`${prefixAdmin}/products/change-status`
-    )
+
 
     script(src="/admin/js/product.js")

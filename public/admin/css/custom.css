@@ -11859,4 +11859,9 @@ textarea.form-control-lg {
   color: #d5d5d5;
 }
 
+.form-check-input:checked {
+  background-color: #3d3d3d;
+  border-color: #959595;
+}
+
 /*# sourceMappingURL=custom.css.map */
