@@ -31,6 +31,7 @@ block main
                         th Title
                         th.text-center Author
                         th.text-center Price
+                        th.text-center Position
                         th.text-center Status
                         th.text-center Act
                 each item, index in products
@@ -51,6 +52,14 @@ block main
                             td.text-center(class="inner-content") #{item.author}
                             td.text-center(class="inner-content") #{item.price}$
                             td.text-center
+                                input(
+                                    type="number"
+                                    value=item.position
+                                    style="width: 40px"
+                                    min="1"
+                                    name="position"
+                                )
+                            td.text-center
                                 if(item.status === "active")
                                     b(class="btn btn-custom status-active" data-status=item.status data-id=item.id button-change-status) Active
                                 else
@@ -69,7 +78,4 @@ block main
         data-path=`${prefixAdmin}/products/delete-product`
     )
 
-
-    //
-    //script(src="/admin/js/script.js")
     script(src="/admin/js/product.js")

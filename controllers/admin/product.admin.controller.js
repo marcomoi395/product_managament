@@ -24,7 +24,8 @@ module.exports.index = async (req, res) => {
     let objectPagination = await pagination(req, Product, find);
     // Pagination END
 
-    const products = await Product.find(find).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
+    const products = await Product.find(find).sort({position: "desc"}).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
+    console.log(products);
 
     res.render("admin/pages/products/index", {
         pageTitle: "Products",
@@ -48,11 +49,14 @@ module.exports.changeMulti = async (req, res) => {
     if (statusChange === "delete") {
         await Product.updateMany({_id: {$in: ids}}, {$set: {deleted: true}});
         await Product.updateMany({_id: {$in: ids}}, {$set: {deletedAt: new Date()}});
-
     } else if (statusChange === "restore") {
         await Product.updateMany({_id: {$in: ids}}, {$set: {deleted: false}});
         await Product.updateMany({_id: {$in: ids}}, {$unset: {deletedAt: ''}});
-
+    } else if (statusChange === "change-position") {
+        for (const item of ids) {
+            const [id, position] = item.split("-");
+            await Product.updateOne({_id: id}, {position: position});
+        }
     } else
         await Product.updateMany({_id: {$in: ids}}, {$set: {status: statusChange}});
     res.redirect("back");
@@ -64,4 +68,8 @@ module.exports.deleteProduct = async (req, res) => {
     await Product.updateOne({_id: req.params.id}, {deletedAt: new Date()});
 
     res.redirect("back");
+};
+
+module.exports.changePosition = async (req, res) => {
+    res.send("OK");
 };

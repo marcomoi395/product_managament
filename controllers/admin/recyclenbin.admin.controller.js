@@ -24,7 +24,7 @@ module.exports.index = async (req, res) => {
     let objectPagination = await pagination(req, Product, find);
     // Pagination END
 
-    const products = await Product.find(find).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
+    const products = await Product.find(find).sort({position: "desc"}).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
 
     res.render("admin/pages/recycle_bin/index", {
         pageTitle: "Recycle Bin",

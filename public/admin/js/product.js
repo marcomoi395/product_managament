@@ -69,8 +69,12 @@ if (formChangeStatusMulti) {
         if (checkBoxChecked.length > 0 && statusSelect.value !== "Select") {
             let ids = [];
             checkBoxChecked.forEach((e) => {
-                ids.push(e.value);
+                if (statusSelect.value === "change-position") {
+                    const positionWantChange = e.closest("tr").querySelector('[name="position"]').value;
+                    ids.push(`${e.value}-${positionWantChange}`);
+                } else ids.push(e.value);
             });
+
             inputIds.value = ids.join(", ");
             formChangeStatusMulti.submit();
         } else if (statusSelect.value === "Select") {
@@ -102,3 +106,10 @@ if (deleteProduct.length > 0) {
 }
 // Delete Product End
 
+// Change Position
+// const inputChangePosition = document.querySelectorAll('[name="position"]');
+// console.log(inputChangePosition);
+// if (inputChangePosition.length > 0) {
+//     const checkBoxChecked = checkBoxMulti.querySelectorAll('input[name="check-id"]:checked');
+// }
+// Change Position End
