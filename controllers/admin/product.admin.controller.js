@@ -25,7 +25,7 @@ module.exports.index = async (req, res) => {
     // Pagination END
 
     const products = await Product.find(find).sort({position: "desc"}).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
-    console.log(products);
+
 
     res.render("admin/pages/products/index", {
         pageTitle: "Products",
@@ -39,6 +39,10 @@ module.exports.index = async (req, res) => {
 // PATCH /change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
     await Product.updateOne({_id: req.params.id}, {status: req.params.status});
+
+    // Flash Messages
+    req.flash('success', 'Successfully updated changes');
+
     res.redirect("back");
 };
 
@@ -49,16 +53,32 @@ module.exports.changeMulti = async (req, res) => {
     if (statusChange === "delete") {
         await Product.updateMany({_id: {$in: ids}}, {$set: {deleted: true}});
         await Product.updateMany({_id: {$in: ids}}, {$set: {deletedAt: new Date()}});
+
+        // Flash Messages
+        req.flash('success', `Successfully deleted ${ids.length} products`);
+
     } else if (statusChange === "restore") {
         await Product.updateMany({_id: {$in: ids}}, {$set: {deleted: false}});
         await Product.updateMany({_id: {$in: ids}}, {$unset: {deletedAt: ''}});
+
+        // Flash Messages
+        req.flash('success', `Successfully restored ${ids.length} products`);
+
     } else if (statusChange === "change-position") {
         for (const item of ids) {
             const [id, position] = item.split("-");
             await Product.updateOne({_id: id}, {position: position});
         }
-    } else
+
+        // Flash Messages
+        req.flash('success', `Successfully changed the position of ${ids.length} products`);
+
+    } else {
         await Product.updateMany({_id: {$in: ids}}, {$set: {status: statusChange}});
+
+        // Flash Messages
+        req.flash('success', `Successfully changed the status of ${ids.length} products`);
+    }
     res.redirect("back");
 };
 
@@ -67,9 +87,8 @@ module.exports.deleteProduct = async (req, res) => {
     await Product.updateOne({_id: req.params.id}, {deleted: true});
     await Product.updateOne({_id: req.params.id}, {deletedAt: new Date()});
 
-    res.redirect("back");
-};
+    // Flash Messages
+    req.flash('success', `Successfully updated changes of ${ids.length} products`);
 
-module.exports.changePosition = async (req, res) => {
-    res.send("OK");
+    res.redirect("back");
 };

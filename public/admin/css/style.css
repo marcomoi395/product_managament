@@ -156,3 +156,28 @@
 .inner-content {
     font-family: Merriweather, serif;
 }
+
+
+[show-alert] {
+    position: fixed;
+    top: 70px;
+    right: 30px;
+    z-index: 9999;
+    opacity: 0.8;
+}
+
+[show-alert].alert-hidden {
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes alert-hidden {
+    from {
+        right: 15px;
+    }
+    to {
+        right: -100%;
+        display: none;
+    }
+}

@@ -4,8 +4,11 @@ include ../../mixins/search
 include ../../mixins/pagination
 include ../../mixins/form-change-multi
 include ../../mixins/form-change-status
+include ../../mixins/flash-message
 
 block main
+    +flash-message(2000)
+
     h2.inner-content #{pageTitle}
 
     .card.mb-3

@@ -10,6 +10,4 @@ router.patch("/change-multi", controller.changeMulti);
 
 router.patch("/delete-product/:id", controller.deleteProduct);
 
-router.patch("/change-position/:id", controller.changePosition);
-
 module.exports = router;

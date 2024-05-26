@@ -104,12 +104,20 @@ if (deleteProduct.length > 0) {
         });
     });
 }
-// Delete Product End
 
-// Change Position
-// const inputChangePosition = document.querySelectorAll('[name="position"]');
-// console.log(inputChangePosition);
-// if (inputChangePosition.length > 0) {
-//     const checkBoxChecked = checkBoxMulti.querySelectorAll('input[name="check-id"]:checked');
-// }
-// Change Position End
+// Flash Message Alert
+const flashMessage = document.querySelector("[show-alert]");
+if (flashMessage) {
+    const dataTime = parseInt(flashMessage.getAttribute("data-time"));
+    console.log(dataTime);
+
+    setTimeout(() => {
+        flashMessage.classList.add("alert-hidden");
+
+        // Delete
+        let parent = flashMessage.parentNode;
+        parent.removeChild(flashMessage);
+    }, dataTime);
+
+}
+// Flash Message Alert END
