@@ -9,7 +9,12 @@ include ../../mixins/flash-message
 block main
     +flash-message(2000)
 
-    h2.inner-content #{pageTitle}
+    .row
+        .col-10
+            h2.inner-content.p-md-2 #{pageTitle}
+        .col-2
+            a(href="products/create" class="btn btn-outline-dark") Add New
+
 
     .card.mb-3
         .card-header Filters and Search
@@ -24,6 +29,7 @@ block main
         .card-header List of products
         .card-body
             +form-change-multi
+
             table(class="table table-hover table-sm align-middle" checkbox-multi)
                 thead
                     tr(class="inner-content")

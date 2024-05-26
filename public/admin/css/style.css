@@ -181,3 +181,14 @@
         display: none;
     }
 }
+
+[form-add-product] {
+    font-family: "Merriweather", serif;
+}
+
+[label-margin] {
+    margin-bottom: 4px; /* Adjust the value as needed */
+    margin-top: 20px; /* Adjust the value as needed */
+    display: block; /* Ensure the label behaves like a block element */
+}
+
