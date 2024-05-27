@@ -118,10 +118,51 @@ module.exports.createProductPost = async (req, res) => {
     }
 
     const product = new Product(data);
-    // await product.save();
+    await product.save();
 
     // Flash Messages
     req.flash('success', `Successfully added ${data.title} to the product list`);
 
     res.redirect("/admin/products");
+};
+
+// GET /edit
+module.exports.editProduct = async (req, res) => {
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id
+        };
+
+        const product = await Product.findOne(find);
+        res.render("admin/pages/products/edit", {
+            pageTitle: "Edit product",
+            product: product
+        });
+    } catch (error) {
+        res.redirect("back");
+    }
+};
+
+// PATCH /editPatch
+module.exports.editProductPatch = async (req, res) => {
+    const data = req.body;
+    const id = req.params.id;
+
+    data.price = parseInt(data.price);
+    data.stock = parseInt(data.stock);
+    data.position = parseInt(data.position);
+
+    if (req.file) {
+        data.thumbnail = `/uploads/${req.file.filename}`;
+    }
+
+    try {
+        await Product.updateOne({_id: id}, data);
+        req.flash('success', `Successfully update the product`);
+        res.redirect("back");
+    } catch (error) {
+        req.flash('error', `Error, please try again`);
+        res.redirect("back");
+    }
 };
