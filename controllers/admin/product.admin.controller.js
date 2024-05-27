@@ -99,3 +99,25 @@ module.exports.createProduct = async (req, res) => {
         pageTitle: "Add new product"
     });
 };
+
+// POST /create
+module.exports.createProductPost = async (req, res) => {
+    const data = req.body;
+    data.price = parseInt(data.price);
+    data.stock = parseInt(data.stock);
+
+    if (data.position === "") {
+        const countProduct = await Product.countDocuments();
+        data.position = countProduct + 1;
+    } else {
+        data.position = parseInt(data.position);
+    }
+
+    const product = new Product(data);
+    await product.save();
+
+    // Flash Messages
+    req.flash('success', `Successfully added ${data.title} to the product list`);
+
+    res.redirect("/admin/products");
+};

@@ -12,4 +12,6 @@ router.patch("/delete-product/:id", controller.deleteProduct);
 
 router.get("/create", controller.createProduct);
 
+router.post("/create", controller.createProductPost);
+
 module.exports = router;

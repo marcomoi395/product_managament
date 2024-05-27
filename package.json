@@ -20,6 +20,7 @@
     "mdb-ui-kit": "^7.2.0",
     "method-override": "^3.0.0",
     "mongoose": "^8.3.3",
+    "mongoose-slug-updater": "^3.3.0",
     "pug": "^3.0.2",
     "sass": "^1.77.2"
   },
