@@ -88,7 +88,7 @@ module.exports.deleteProduct = async (req, res) => {
     await Product.updateOne({_id: req.params.id}, {deletedAt: new Date()});
 
     // Flash Messages
-    req.flash('success', `Successfully updated changes of ${ids.length} products`);
+    req.flash('success', `Successfully deleted product`);
 
     res.redirect("back");
 };
@@ -105,6 +105,7 @@ module.exports.createProductPost = async (req, res) => {
     const data = req.body;
     data.price = parseInt(data.price);
     data.stock = parseInt(data.stock);
+    data.thumbnail = `/uploads/${req.file.filename}`;
 
     if (data.position === "") {
         const countProduct = await Product.countDocuments();

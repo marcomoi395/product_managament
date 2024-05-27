@@ -6,6 +6,7 @@ block main
             action=`${prefixAdmin}/products/create?_method=POST`,
             method='POST',
             form-add-new-product
+            enctype="multipart/form-data"
         )
             .row
                 .col-10
@@ -36,8 +37,8 @@ block main
                 label(label-margin for='description') Description
                 textarea#description.form-control(name='description', rows='3', placeholder='Enter product description')
             .form-group
-                label(label-margin for='thumbnail') Picture (Link)
-                input#thumbnail.form-control(type='text', name='thumbnail', required='')
+                label(label-margin for='thumbnail') Picture
+                input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', required='', accept="image/*")
             .form-group(label-margin)
                 .row
                     .col-1.form-check
