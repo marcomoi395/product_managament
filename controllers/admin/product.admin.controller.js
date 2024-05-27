@@ -4,6 +4,7 @@ const filterStatus = require("../../miscs/filter-status");
 const search = require("../../miscs/search");
 const pagination = require("../../miscs/pagination");
 
+
 // GET /
 module.exports.index = async (req, res) => {
     let find = {
@@ -103,6 +104,8 @@ module.exports.createProduct = async (req, res) => {
 // POST /create
 module.exports.createProductPost = async (req, res) => {
     const data = req.body;
+
+
     data.price = parseInt(data.price);
     data.stock = parseInt(data.stock);
     data.thumbnail = `/uploads/${req.file.filename}`;
@@ -115,7 +118,7 @@ module.exports.createProductPost = async (req, res) => {
     }
 
     const product = new Product(data);
-    await product.save();
+    // await product.save();
 
     // Flash Messages
     req.flash('success', `Successfully added ${data.title} to the product list`);

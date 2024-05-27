@@ -1,6 +1,9 @@
 extends ../../layout/default
+include ../../mixins/flash-message
 
 block main
+    +flash-message-error(5000)
+
     .container.mt-5(form-add-product)
         form(
             action=`${prefixAdmin}/products/create?_method=POST`,
@@ -28,15 +31,15 @@ block main
                         input#title.form-control(type='text', name='title', placeholder='Enter title', required='')
                     .col-md-6
                         label(label-margin for='author') Author
-                        input#author.form-control(type='text', name='author', placeholder='Enter author name', required='')
+                        input#author.form-control(type='text', name='author', placeholder='Enter author name')
             .form-group
                 .row
                     .col-md-4
                         label(label-margin for='price') Price
-                        input#price.form-control(type='number', step='1', min=0, name='price', placeholder='Enter price', required='')
+                        input#price.form-control(type='number', step='1', min=0, name='price', placeholder='Enter price')
                     .col-md-4
                         label(label-margin for='stock') Stock
-                        input#stock.form-control(type='number', step='1', min=1, name='stock', placeholder='Enter stock', required='')
+                        input#stock.form-control(type='number', step='1', min=1, name='stock', placeholder='Enter stock')
                     .col-md-4
                         label(label-margin for='position') Position
                         input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)')
@@ -48,7 +51,7 @@ block main
             .row
                 .col-6
                     label(label-margin for='thumbnail') Picture
-                    input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', required='', accept="image/*" upload-image-input)
+                    input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
                 .col-6
                     img(
                         src=""
