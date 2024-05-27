@@ -187,9 +187,17 @@
 }
 
 [label-margin] {
-    margin-bottom: 4px; /* Adjust the value as needed */
-    margin-top: 20px; /* Adjust the value as needed */
-    display: block; /* Ensure the label behaves like a block element */
+    margin-bottom: 4px;
+    margin-top: 15px;
+    display: block;
 }
 
+[upload-image-preview] {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 20px;
+    border: 2px solid #a4a4a4;
+    border-radius: 5px;
+    object-fit: cover;
+}
 

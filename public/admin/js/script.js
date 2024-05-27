@@ -56,5 +56,21 @@ if (pagination) {
 }
 //Pagination END
 
+// Upload Image Preview
+const formUploadImage = document.querySelector("[upload-image]");
+if (formUploadImage) {
+    const uploadImageInput = document.querySelector("[upload-image-input]");
+    const uploadImagePreview = document.querySelector("[upload-image-preview]");
 
+    uploadImageInput.addEventListener("change", (e) => {
+        const [file] = uploadImageInput.files;
+        if (file)
+            uploadImagePreview.src = URL.createObjectURL(file);
+        else {
+            uploadImagePreview.src = "";
+        }
+    });
+}
+
+// Upload Image Preview END
 

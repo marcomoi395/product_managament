@@ -9,8 +9,16 @@ block main
             enctype="multipart/form-data"
         )
             .row
-                .col-10
+                .col-6
                     h2.mb-4 Add New Product
+                .col-4
+                    .row
+                        .col-5.form-check
+                            input#status.form-check-input(type='radio', name='status', value='active', checked='')
+                            label.form-check-label(for='status') Active
+                        .col-5.form-check
+                            input#status2.form-check-input(type='radio', name='status', value='inactive')
+                            label.form-check-label(for='status2') Inactive
                 .col-2
                     button.btn.btn-outline-dark(type='submit') Add New
             .form-group
@@ -36,17 +44,17 @@ block main
             .form-group
                 label(label-margin for='description') Description
                 textarea#description.form-control(name='description', rows='3', placeholder='Enter product description')
-            .form-group
-                label(label-margin for='thumbnail') Picture
-                input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', required='', accept="image/*")
-            .form-group(label-margin)
-                .row
-                    .col-1.form-check
-                        input#status.form-check-input(type='radio', name='status', value='active', checked='')
-                        label.form-check-label(for='status') Active
-                    .col-1.form-check
-                        input#status2.form-check-input(type='radio', name='status', value='inactive')
-                        label.form-check-label(for='status2') Inactive
+            .form-group(upload-image)
+            .row
+                .col-6
+                    label(label-margin for='thumbnail') Picture
+                    input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', required='', accept="image/*" upload-image-input)
+                .col-6
+                    img(
+                        src=""
+                        upload-image-preview
+                    )
+
 
 
 
