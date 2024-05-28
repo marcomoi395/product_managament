@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(methodOverride('_method'));
 
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 // Flash Messages
@@ -32,7 +32,7 @@ app.use(flash());
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // Public
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 //Routes
 route(app);
