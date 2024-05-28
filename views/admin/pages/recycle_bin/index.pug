@@ -6,13 +6,14 @@ include ../../mixins/form-change-multi
 include ../../mixins/form-change-status
 include ../../mixins/form-change-multi-recycle-bin
 include ../../mixins/flash-message
+include ../../mixins/sort
 
 block main
     +flash-message-success(5000)
 
     h2.inner-content.p-md-2 #{pageTitle}
 
-    .card.mb-3
+    .card.mb-3(font-setting)
         .card-header Filters and Search
         .card-body
             .row
@@ -20,8 +21,8 @@ block main
                     //+filter-status(filterStatus)
                 .col-6
                     +search(title)
-
-    .card.mb-3
+    +sort()
+    .card.mb-3(font-setting)
         .card-header List of products
         .card-body
             +form-change-multi-recycle-bin

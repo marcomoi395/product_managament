@@ -1,17 +1,17 @@
 module.exports = (req) => {
     let filterStatus = [
         {
-            name: "Tất cả",
+            name: "All",
             status: "",
             class: ""
         },
         {
-            name: "Hoạt động",
+            name: "Active",
             status: "active",
             class: ""
         },
         {
-            name: "Dừng",
+            name: "Inactive",
             status: "inactive",
             class: ""
         }

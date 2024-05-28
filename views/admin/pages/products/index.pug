@@ -5,18 +5,18 @@ include ../../mixins/pagination
 include ../../mixins/form-change-multi
 include ../../mixins/form-change-status
 include ../../mixins/flash-message
+include ../../mixins/sort
 
 block main
     +flash-message-success(5000)
 
-    .row
+    .row(font-setting)
         .col-10
             h2.inner-content.p-md-2 #{pageTitle}
         .col-2
             a(href="products/create" class="btn btn-outline-dark") Add New
 
-
-    .card.mb-3
+    .card.mb-3(font-setting)
         .card-header Filters and Search
         .card-body
             .row
@@ -25,7 +25,9 @@ block main
                 .col-6
                     +search(title)
 
-    .card.mb-3
+    +sort()
+
+    .card.mb-3(font-setting)
         .card-header List of products
         .card-body
             +form-change-multi

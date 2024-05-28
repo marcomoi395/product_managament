@@ -71,6 +71,42 @@ if (formUploadImage) {
         }
     });
 }
-
 // Upload Image Preview END
+
+// Sort
+const sort = document.querySelector("[sort]");
+if (sort) {
+    const sortSelect = document.querySelector("[sort-select]");
+    const sortReset = document.querySelector("[sort-reset]");
+    let url = new URL(window.location.href);
+
+    sortSelect.addEventListener("change", (e) => {
+        const [key, value] = e.target.value.split("-");
+        console.log(e.target.value);
+        url.searchParams.set("sortKey", key);
+        url.searchParams.set("sortValue", value);
+        console.log(url.href);
+
+        window.location.href = url.href;
+    });
+
+    const getKey = url.searchParams.get("sortKey");
+    const getValue = url.searchParams.get("sortValue");
+
+    if (getKey && getValue) {
+        let stringSort = `${getKey}-${getValue}`;
+        const selected = sortSelect.querySelector(`option[value=${stringSort}]`);
+        selected.selected = true;
+    }
+
+    sortReset.addEventListener("click", (e) => {
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortValue");
+
+        window.location.href = url.href;
+    });
+}
+// Sort End
+
+
 
