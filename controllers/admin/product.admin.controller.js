@@ -105,10 +105,11 @@ module.exports.createProduct = async (req, res) => {
 module.exports.createProductPost = async (req, res) => {
     const data = req.body;
 
+    if (data.price)
+        data.price = parseInt(data.price);
 
-    data.price = parseInt(data.price);
-    data.stock = parseInt(data.stock);
-    data.thumbnail = `/uploads/${req.file.filename}`;
+    if (data.stock)
+        data.stock = parseInt(data.stock);
 
     if (data.position === "") {
         const countProduct = await Product.countDocuments();
@@ -149,13 +150,16 @@ module.exports.editProductPatch = async (req, res) => {
     const data = req.body;
     const id = req.params.id;
 
-    data.price = parseInt(data.price);
-    data.stock = parseInt(data.stock);
-    data.position = parseInt(data.position);
+    if (data.price)
+        data.price = parseInt(data.price);
 
-    if (req.file) {
-        data.thumbnail = `/uploads/${req.file.filename}`;
-    }
+    if (data.stock)
+        data.stock = parseInt(data.stock);
+
+    if (data.position)
+        data.position = parseInt(data.position);
+
+    console.log(data);
 
     try {
         await Product.updateOne({_id: id}, data);
