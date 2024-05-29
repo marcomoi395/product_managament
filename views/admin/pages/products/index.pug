@@ -52,21 +52,24 @@ block main
                                 input(class="form-check-input" type="checkbox" name="check-id" value=item.id)
                             td.text-center(class="inner-content") #{index + 1}
                             td.text-center
-                                img(
-                                    src=item.thumbnail
-                                    alt=item.title
-                                    width="55px"
-                                    height="55px"
-                                    style="border-radius: 28%; object-fit: cover; margin: 3px 0px;"
-                                )
-                            td(class="inner-content") #{item.title}
+                                a(href=`${prefixAdmin}/products/detail/${item.slug}`)
+                                    img(
+                                        src=item.thumbnail
+                                        alt=item.title
+                                        width="55px"
+                                        height="55px"
+                                        style="border-radius: 28%; object-fit: cover; margin: 3px 0px;"
+                                    )
+                            td(class="inner-content")
+                                a(href=`${prefixAdmin}/products/detail/${item.slug}` title-product) #{item.title}
+
                             td.text-center(class="inner-content") #{item.author}
                             td.text-center(class="inner-content") #{item.price}$
                             td.text-center
                                 input(
                                     type="number"
                                     value=item.position
-                                    style="width: 40px"
+                                    style="width: 55px"
                                     min="1"
                                     name="position"
                                 )
@@ -90,3 +93,4 @@ block main
     )
 
     script(src="/admin/js/product.js")
+

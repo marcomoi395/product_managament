@@ -33,7 +33,6 @@ module.exports.index = async (req, res) => {
         sort.position = "desc";
     }
     // Sort END
-    console.log(sort);
     const products = await Product.find(find).sort(sort).limit(objectPagination.numberOfProductsPerPage).skip(objectPagination.skip);
 
 
@@ -168,8 +167,6 @@ module.exports.editProductPatch = async (req, res) => {
     if (data.position)
         data.position = parseInt(data.position);
 
-    console.log(data);
-
     try {
         await Product.updateOne({_id: id}, data);
         req.flash('success', `Successfully update the product`);
@@ -178,4 +175,19 @@ module.exports.editProductPatch = async (req, res) => {
         req.flash('error', `Error, please try again`);
         res.redirect("back");
     }
+};
+
+// GET /detail
+module.exports.detailProduct = async (req, res) => {
+    let find = {
+        deleted: false,
+        slug: req.params.slug
+    };
+
+    const product = await Product.findOne(find);
+    product.status = product.status[0].toUpperCase() + product.status.slice(1);
+
+    res.render("admin/pages/products/detail", {
+        product: product
+    });
 };

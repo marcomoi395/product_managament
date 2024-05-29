@@ -209,3 +209,57 @@
     font-family: Merriweather, sans-serif;
 }
 
+
+[title-product] {
+    text-decoration: none;
+    color: black;
+}
+
+[title-product]:hover {
+    text-decoration: none;
+    color: #4b4b4b;
+}
+
+[image-detail] {
+    max-width: 500px;
+    max-height: 500px;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+    border: 2px solid #8a8a8a;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.list-detail {
+    margin-top: 20px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+}
+
+.status-item::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: #9d9d9d; /* Thay đổi màu sắc tùy theo trạng thái */
+    border-radius: 4px;
+}
+
+.status-item[data-status="Active"]::before {
+    background-color: #4dff4d;
+}
+
+.status-item[data-status="Inactive"]::before {
+    background-color: #ff2e2e;
+}
+
+.button-in-detail {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+

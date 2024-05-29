@@ -10,6 +10,7 @@ const systemConfig = require("./config/system.js");
 const flash = require('express-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const path = require("path");
 
 database.connect();
 
@@ -33,6 +34,9 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 // Public
 app.use(express.static(`${__dirname}/public`));
+
+// Tiny MCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 //Routes
 route(app);

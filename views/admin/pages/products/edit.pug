@@ -47,7 +47,7 @@ block main
 
             .form-group
                 label(label-margin for='description') Description
-                textarea#description.form-control(name='description', rows='3', placeholder='Enter product description') #{product.description}
+                textarea#description.form-control.tinymce(name='description', rows='3', placeholder='Enter product description') #{product.description}
             .form-group(upload-image)
             .row
                 .col-6

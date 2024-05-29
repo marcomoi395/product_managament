@@ -1,0 +1,39 @@
+extends ../../layout/default
+include ../../mixins/flash-message
+
+block main
+
+    .container.mt-5(form-add-product)
+        h2(class="mb 4") #{product.title}
+        .row
+            .col-3.mb-lg-5
+                .inner-image
+                    img(
+                        src=product.thumbnail
+                        image-detail
+                    )
+            .col-6
+                ul(class="list-group list-group-flush list-detail")
+                    li(class="list-group-item")
+                        Strong Title:
+                        |  #{product.title}
+                    li(class="list-group-item")
+                        Strong Author:
+                        |  #{product.author}
+                    li(class="list-group-item")
+                        Strong Price:
+                        |  #{product.price}
+                    li(class="list-group-item")
+                        Strong Stock:
+                        |  #{product.stock}
+                    li(class="list-group-item")
+                        Strong Position:
+                        |  #{product.position}
+                    li(class="list-group-item status-item" data-status=product.status)
+                        Strong Status:
+                            |  #{product.status}
+                    li(class="list-group-item")
+                        Strong Created at:
+                        |  #{product.createdAt}
+                a(class="btn btn-outline-dark button-in-detail", href=`${prefixAdmin}/products/edit/${product._id}`) Edit
+    script(src="/admin/js/product.js")

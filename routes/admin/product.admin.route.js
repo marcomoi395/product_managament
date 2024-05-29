@@ -34,4 +34,6 @@ router.patch("/edit/:id",
     controller.editProductPatch
 );
 
+router.get("/detail/:slug", controller.detailProduct);
+
 module.exports = router;
