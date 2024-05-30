@@ -5,8 +5,8 @@ include ../../mixins/pagination
 include ../../mixins/form-change-multi
 include ../../mixins/form-change-status
 include ../../mixins/flash-message
-include ../../mixins/form-delete
 include ../../mixins/sort
+include ../../mixins/form-delete
 
 block main
     +flash-message-success(5000)
@@ -15,7 +15,7 @@ block main
         .col-10
             h2.inner-content.p-md-2 #{pageTitle}
         .col-2
-            a(href="products/create" class="btn btn-outline-dark") Add New
+            a(href="category/create" class="btn btn-outline-dark") Add New
 
     .card.mb-3(font-setting)
         .card-header Filters and Search
@@ -24,14 +24,14 @@ block main
                 .col-6
                     +filter-status(filterStatus)
                 .col-6
-                    +search(title)
+                    +search(titleSearch)
 
-    +sort("position-desc")
+    +sort("title-asc")
 
     .card.mb-3(font-setting)
         .card-header List of products
         .card-body
-            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+            +form-change-multi(`${prefixAdmin}/category/change-multi?_method=PATCH`)
 
             table(class="table table-hover table-sm align-middle" checkbox-multi)
                 thead
@@ -39,22 +39,20 @@ block main
                         th.text-center
                             input(class="form-check-input" type="checkbox" name="checkall")
                         th.text-center No
-                        th.text-center Picture
+                        th.text-center(class="inner-content" style="width: 150px;") Picture
                         th Title
-                        th.text-center Author
-                        th.text-center Price
                         th.text-center Position
                         th.text-center Status
                         th.text-center Act
-                each item, index in products
+                each item, index in records
                     tbody
-                        tr
+                        tr(class="inner-content")
                             td.text-center
                                 input(class="form-check-input" type="checkbox" name="check-id" value=item.id)
-                            td.text-center(class="inner-content") #{index + 1}
+                            td.text-center #{index + 1}
                             td.text-center
                                 if(item.thumbnail)
-                                    a(href=`${prefixAdmin}/products/detail/${item.slug}`)
+                                    a(href=`${prefixAdmin}/category/detail/${item.slug}`)
                                         img(
                                             src=item.thumbnail
                                             alt=item.title
@@ -63,10 +61,7 @@ block main
                                             style="border-radius: 28%; object-fit: cover; margin: 3px 0px;"
                                         )
                             td(class="inner-content")
-                                a(href=`${prefixAdmin}/products/detail/${item.slug}` title-product) #{item.title}
-
-                            td.text-center(class="inner-content") #{item.author}
-                            td.text-center(class="inner-content") #{item.price}$
+                                a(href=`${prefixAdmin}/category/detail/${item.slug}` title-product) #{item.title}
                             td.text-center
                                 input(
                                     type="number"
@@ -81,12 +76,12 @@ block main
                                 else
                                     b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
                             td.text-center
-                                a(class="btn btn-custom edit", href=`${prefixAdmin}/products/edit/${item._id}`) Edit
+                                a(class="btn btn-custom edit", href=`${prefixAdmin}/category/edit/${item._id}`) Edit
                                 button(class="btn btn-custom delete" button-delete-product data-id=item.id) Delete
 
     +pagination(pagination)
-    +form-change-status(`${prefixAdmin}/products/change-status`)
-    +form-delele(`${prefixAdmin}/products/delete-product`)
+    +form-change-status(`${prefixAdmin}/category/change-status`)
+    +form-delele(`${prefixAdmin}/category/delete-category`)
 
     script(src="/admin/js/product.js")
 

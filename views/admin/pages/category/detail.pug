@@ -18,15 +18,6 @@ block main
                         Strong Title:
                         |  #{product.title}
                     li(class="list-group-item")
-                        Strong Author:
-                        |  #{product.author}
-                    li(class="list-group-item")
-                        Strong Price:
-                        |  #{product.price}
-                    li(class="list-group-item")
-                        Strong Stock:
-                        |  #{product.stock}
-                    li(class="list-group-item")
                         Strong Position:
                         |  #{product.position}
                     li(class="list-group-item status-item" data-status=product.status)
@@ -38,5 +29,5 @@ block main
                     li(class="list-group-item")
                         Strong Created at:
                         |  #{product.createdAt}
-                a(class="btn btn-outline-dark button-in-detail", href=`${prefixAdmin}/products/edit/${product._id}`) Edit
+                a(class="btn btn-outline-dark button-in-detail", href=`${prefixAdmin}/category/edit/${product._id}`) Edit
     script(src="/admin/js/product.js")

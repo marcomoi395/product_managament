@@ -37,7 +37,7 @@ module.exports.index = async (req, res) => {
 
 
     res.render("admin/pages/products/index", {
-        pageTitle: "Products",
+        pageTitle: "List of products",
         products: products,
         filterStatus: filterStatus(req),
         title: search(req).keyword,

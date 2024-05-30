@@ -1,5 +1,6 @@
 const productRouter = require("./product.admin.route");
 const dashboardRouter = require("./dashboard.admin.route");
+const categoryRouter = require("./category.admin.route");
 const recycleBinRouter = require("./recyclebin.admin.route");
 const systemConfig = require("../../config/system");
 
@@ -10,4 +11,6 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/products", productRouter);
 
     app.use(PATH_ADMIN + "/recycle-bin", recycleBinRouter);
+
+    app.use(PATH_ADMIN + "/category", categoryRouter);
 };

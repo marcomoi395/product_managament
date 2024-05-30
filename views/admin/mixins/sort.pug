@@ -1,4 +1,4 @@
-mixin sort()
+mixin sort(selectedSort)
     .card.mb-3(font-setting)
         .card-header Sort By
         .card-body
@@ -6,12 +6,12 @@ mixin sort()
                 .col-3
                     div(sort)
                         select.form-select(name="sort" sort-select)
-                            option(value='position-desc') Position (High - Low)
-                            option(value='position-asc') Position (Low - High)
-                            option(value='price-desc') Price (High - Low)
-                            option(value='price-asc') Price (Low - High)
-                            option(value='title-desc') Title (Z - A)
-                            option(value='title-asc') Title (A - Z)
+                            option(value='position-desc' selected=selectedSort === 'position-desc') Position (High - Low)
+                            option(value='position-asc' selected=selectedSort === 'position-asc') Position (Low - High)
+                            option(value='price-desc' selected=selectedSort === 'price-desc') Price (High - Low)
+                            option(value='price-asc' selected=selectedSort === 'price-asc') Price (Low - High)
+                            option(value='title-desc' selected=selectedSort === 'title-desc') Title (Z - A)
+                            option(value='title-asc' selected=selectedSort === 'title-asc') Title (A - Z)
 
                 .col-4
                     button(type="submit" class="btn btn-light" sort-reset) Reset

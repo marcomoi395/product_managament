@@ -1,6 +1,6 @@
-mixin form-change-multi()
+mixin form-change-multi(path)
     form(
-        action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+        action=path
         method="POST"
         form-change-status-multi
     )
