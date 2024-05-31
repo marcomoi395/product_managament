@@ -1,4 +1,49 @@
 extends ../../layout/default
 
 block main
-    h2.inner-content.p-md-2 #{pageTitle}
+    .container.mt-5(form-add-product)
+        div(data-records=records)
+        .row(font-setting)
+            .col-10
+                h2.inner-content.p-md-2 #{pageTitle}
+            .col-2
+                button(class="btn btn-outline-dark" button-submit) Apply
+        .card.mb-3(font-setting)
+            .card-header List of permission
+            .card-body
+                table(class="table table-hover" table-permission)
+                    thead
+                        tr
+                            th Tính năng
+                            each item in records
+                                th.text-center #{item.title}
+                    tbody
+                        tr(name="id" class="d-none")
+                            td
+                            each item in records
+                                td.text-center
+                                    input(type="text" value=item.id)
+                        each element in features
+                            tr
+                                td(colspan=4, class="table-light")
+                                    b #{element.name}
+                                each feature in element.featureList
+                                    tr(name=feature.dataName)
+                                        td #{feature.name}
+                                        each item in records
+                                            td.text-center
+                                                input(type="checkbox" class="form-check-input")
+
+        form(
+            id="form-change-permission"
+            method="POST"
+            action=`${prefixAdmin}/decentralization/change/?_method=PATCH`
+            class="d-none"
+        )
+            div(class="form-group")
+                input(
+                    type="text"
+                    class="form-control"
+                    name="permission"
+                )
+    script(src="/admin/js/role.js")

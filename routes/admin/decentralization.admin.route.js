@@ -4,4 +4,6 @@ const controller = require("../../controllers/admin/decentralization.admin.contr
 
 router.get("/", controller.index);
 
+router.patch("/change", controller.changePermission);
+
 module.exports = router;
