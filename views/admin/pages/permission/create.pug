@@ -1,0 +1,32 @@
+extends ../../layout/default
+include ../../mixins/flash-message
+
+block main
+    +flash-message-error(5000)
+    +flash-message-success(5000)
+
+    .container.mt-5(form-add-product)
+        form(
+            action=`${prefixAdmin}/permission/create?_method=POST`,
+            method='POST',
+            form-add-new-caterogy-product
+        )
+            .row
+                .col-6
+                    h2.mb-4 #{pageTitle}
+                .col-4
+                .col-2
+                    button.btn.btn-outline-dark(type='submit') Add New
+            .form-group
+                .row
+                    .col-md-4
+                        label(label-margin for='title') Title
+                        input#title.form-control(type='text', name='title', placeholder='Enter title', required='')
+
+            .form-group
+                label(label-margin for='description') Description
+                textarea#description(class="form-control tinymce" name='description', rows='1', placeholder='Enter product description')
+
+
+
+    script(src="/admin/js/product.js")

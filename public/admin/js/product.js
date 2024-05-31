@@ -85,8 +85,9 @@ if (formChangeStatusMulti) {
 }
 // Form Change Multi End
 
-// Delete Product
+// Delete
 const deleteProduct = document.querySelectorAll("[button-delete-product]");
+console.log(deleteProduct);
 
 if (deleteProduct.length > 0) {
     const formDeleteProduct = document.querySelector("#form-delete-product");
