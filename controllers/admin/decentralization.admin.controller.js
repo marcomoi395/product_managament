@@ -4,17 +4,17 @@ const features = require("../../miscs/feature-list");
 // GET /
 module.exports.index = async (req, res) => {
     let find = {
-        deleted: false
+        deleted: false,
     };
 
     const records = await Role.find(find);
 
     res.render("admin/pages/decentralization/index", {
         pageTitle: "Decentralization",
-        records: records, features: features()
+        records: records,
+        features: features(),
     });
 };
-
 
 // PATCH /change
 module.exports.changePermission = async (req, res) => {
@@ -22,12 +22,15 @@ module.exports.changePermission = async (req, res) => {
 
     try {
         for (const item of data) {
-            await Role.updateOne({_id: item.id}, {permission: item.permission});
+            await Role.updateOne(
+                { _id: item.id },
+                { permission: item.permission },
+            );
         }
-        req.flash('success', `Successfully update decentralization`);
+        req.flash("success", `Successfully update decentralization`);
         res.redirect("back");
     } catch (error) {
-        req.flash('error', `Error, please try again`);
+        req.flash("error", `Error, please try again`);
         res.redirect("back");
     }
 };

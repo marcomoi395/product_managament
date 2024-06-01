@@ -82,7 +82,7 @@ block main
                                         b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
                                 td.text-center
                                     a(class="btn btn-custom edit", href=`${prefixAdmin}/products/edit/${item._id}`) Edit
-                                    button(class="btn btn-custom delete" button-delete-product data-id=item.id) Delete
+                                    button(class="btn btn-custom delete" button-delete-product data-id=item._id) Delete
 
         +pagination(pagination)
         +form-change-status(`${prefixAdmin}/products/change-status`)

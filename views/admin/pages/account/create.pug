@@ -3,13 +3,12 @@ include ../../mixins/flash-message
 
 block main
     +flash-message-error(5000)
-    +flash-message-success(5000)
 
     .container.mt-5(form-add-product)
         form(
-            action=`${prefixAdmin}/category/create?_method=POST`,
+            action=`${prefixAdmin}/account/create?_method=POST`,
             method='POST',
-            form-add-new-caterogy-product
+            form-add-new-product
             enctype="multipart/form-data"
         )
             .row
@@ -26,35 +25,33 @@ block main
                 .col-2
                     button.btn.btn-outline-dark(type='submit') Add New
             .form-group
-                .row
-                    .col-md-4
-                        label(label-margin for='title') Title
-                        input#title.form-control(type='text', name='title', placeholder='Enter title', required='')
+                .col-md-4
+                    label(label-margin for='fullname') Full name
+                    input#fullName.form-control(type='text', name='fullName', placeholder='Enter full name', required)
             .form-group
                 .row
                     .col-md-4
-                        label(label-margin for='parent_id') Parent category
-                        select#parent_id.form-select(name="parent_id")
-                            option(selected='') Select the parent category
-                            each item in records
-                                option(value=item.id) #{item.title}
-
-            .form-group
-                .row
+                        label(label-margin for='email') Email
+                        input#email.form-control(type='text', name='email', placeholder='Enter email', required)
                     .col-md-4
-                        label(label-margin for='position') Position
-                        input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)')
-
+                        label(label-margin for='password') Password
+                        input#password.form-control(type='text', name='password', placeholder='Enter password' required)
             .form-group
-                label(label-margin for='description') Description
-                textarea#description(class="form-control tinymce" name='description', rows='1', placeholder='Enter product description')
-
+                .col-md-4
+                    label(label-margin for='phone') Phone number
+                    input#telephone.form-control(type='text', name='phone', placeholder='Enter phone number')
+            .form-group
+                .col-md-4
+                    label(label-margin for='role_id') Permission
+                    select#role_id.form-select(name='role_id')
+                        each role in roles
+                            option(value=role.id) #{role.title}
             .form-group(upload-image)
                 .row
-                    .col-6
-                        label(label-margin for='thumbnail') Picture
+                    .col-md-4
+                        label(label-margin for='thumbnail') Avatar
                         input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
-                    .col-6
+                    .col-md-4
                         img(
                             src=""
                             upload-image-preview

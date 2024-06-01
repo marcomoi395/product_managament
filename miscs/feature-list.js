@@ -5,42 +5,42 @@ module.exports = () => {
             featureList: [
                 {
                     name: "View",
-                    dataName: "product-category-view"
+                    dataName: "product-category-view",
                 },
                 {
                     name: "Add",
-                    dataName: "product-category-add"
+                    dataName: "product-category-add",
                 },
                 {
                     name: "Edit",
-                    dataName: "product-category-edit"
+                    dataName: "product-category-edit",
                 },
                 {
                     name: "Delete",
-                    dataName: "product-category-delete"
-                }
-            ]
+                    dataName: "product-category-delete",
+                },
+            ],
         },
         {
             name: "List of products",
             featureList: [
                 {
                     name: "View",
-                    dataName: "product-view"
+                    dataName: "product-view",
                 },
                 {
                     name: "Add",
-                    dataName: "product-add"
+                    dataName: "product-add",
                 },
                 {
                     name: "Edit",
-                    dataName: "product-edit"
+                    dataName: "product-edit",
                 },
                 {
                     name: "Delete",
-                    dataName: "product-delete"
-                }
-            ]
-        }
+                    dataName: "product-delete",
+                },
+            ],
+        },
     ];
 };

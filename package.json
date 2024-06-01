@@ -6,6 +6,9 @@
     "start": "nodemon --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "prettier": {
+    "tabWidth": 4
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,12 +22,14 @@
     "express": "^4.19.2",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.0",
+    "md5": "^2.3.0",
     "mdb-ui-kit": "^7.2.0",
     "method-override": "^3.0.0",
     "mongodb": "^6.6.2",
     "mongoose": "^8.3.3",
     "mongoose-slug-updater": "^3.3.0",
     "multer": "^1.4.5-lts.1",
+    "prettier": "^3.2.5",
     "pug": "^3.0.2",
     "sass": "^1.77.2",
     "streamifier": "^0.1.1",
