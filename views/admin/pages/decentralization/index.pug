@@ -1,6 +1,10 @@
 extends ../../layout/default
+include ../../mixins/flash-message
 
 block main
+    +flash-message-success(5000)
+    +flash-message-error(5000)
+
     .container.mt-5(form-add-product)
         div(data-records=records)
         .row(font-setting)

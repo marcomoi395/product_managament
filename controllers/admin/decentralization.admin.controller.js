@@ -11,8 +11,7 @@ module.exports.index = async (req, res) => {
 
     res.render("admin/pages/decentralization/index", {
         pageTitle: "Decentralization",
-        records: records,
-        features: features()
+        records: records, features: features()
     });
 };
 
