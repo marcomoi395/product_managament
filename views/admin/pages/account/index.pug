@@ -10,59 +10,63 @@ include ../../mixins/sort
 
 block main
     +flash-message-success(5000)
+    if(role.permission.includes("account-view"))
+        .container.mt-5(form-add-product)
+            .row(font-setting)
+                .col-10
+                    h2.inner-content.p-md-2 #{pageTitle}
+                .col-2
+                    if(role.permission.includes("account-add"))
+                        a(href="account/create" class="btn btn-outline-dark") Add New
 
-    .container.mt-5(form-add-product)
-        .row(font-setting)
-            .col-10
-                h2.inner-content.p-md-2 #{pageTitle}
-            .col-2
-                a(href="account/create" class="btn btn-outline-dark") Add New
+            .card.mb-3(font-setting)
+                .card-header Filters and Search
+                .card-body
+                    .row
+                        .col-6
+                            +filter-status(filterStatus)
 
-        .card.mb-3(font-setting)
-            .card-header Filters and Search
-            .card-body
-                .row
-                    .col-6
-                        +filter-status(filterStatus)
+            .card.mb-3(font-setting)
+                .card-header Account list
+                .card-body
+                    table(class="table table-hover table-sm align-middle")
+                        thead
+                            tr(class="inner-content")
+                                th.text-center No
+                                th.text-center Avatar
+                                th Full Name
+                                th Permission
+                                th.text-center Status
+                                th.text-center Act
+                        each item, index in records
+                            tbody
+                                tr
+                                    td.text-center(class="inner-content") #{index + 1}
+                                    td.text-center
+                                        if(item.thumbnail)
+                                            img(
+                                                src=item.thumbnail
+                                                alt=item.title
+                                                width="55px"
+                                                height="55px"
+                                                style="border-radius: 28%; object-fit: cover; margin: 3px 0px;"
+                                            )
+                                    td(class="inner-content") #{item.fullName}
+                                    td #{item.role}
+                                    td.text-center
+                                        if(role.permission.includes("account-edit"))
+                                            if(item.status === "active")
+                                                b(class="btn btn-custom status-active" data-status=item.status data-id=item._id button-change-status) Active
+                                            else
+                                                b(class="btn btn-custom status-inactive" data-status=item.status data-id=item._id button-change-status) Inactive
+                                    td.text-center
+                                        if(role.permission.includes("account-edit"))
+                                            a(class="btn btn-custom edit", href=`${prefixAdmin}/account/edit/${item._id}`) Edit
+                                        if(role.permission.includes("account-delete"))
+                                            button(class="btn btn-custom delete" button-delete-product data-id=item._id) Delete
 
-        .card.mb-3(font-setting)
-            .card-header Account list
-            .card-body
-                table(class="table table-hover table-sm align-middle")
-                    thead
-                        tr(class="inner-content")
-                            th.text-center No
-                            th.text-center Avatar
-                            th Full Name
-                            th Permission
-                            th.text-center Status
-                            th.text-center Act
-                    each item, index in records
-                        tbody
-                            tr
-                                td.text-center(class="inner-content") #{index + 1}
-                                td.text-center
-                                    if(item.thumbnail)
-                                        img(
-                                            src=item.thumbnail
-                                            alt=item.title
-                                            width="55px"
-                                            height="55px"
-                                            style="border-radius: 28%; object-fit: cover; margin: 3px 0px;"
-                                        )
-                                td(class="inner-content") #{item.fullName}
-                                td #{item.role}
-                                td.text-center
-                                    if(item.status === "active")
-                                        b(class="btn btn-custom status-active" data-status=item.status data-id=item._id button-change-status) Active
-                                    else
-                                        b(class="btn btn-custom status-inactive" data-status=item.status data-id=item._id button-change-status) Inactive
-                                td.text-center
-                                    a(class="btn btn-custom edit", href=`${prefixAdmin}/account/edit/${item._id}`) Edit
-                                    button(class="btn btn-custom delete" button-delete-product data-id=item._id) Delete
-
-        +form-delele(`${prefixAdmin}/account/delete-account`)
-        +form-change-status(`${prefixAdmin}/account/change-status`)
+            +form-delele(`${prefixAdmin}/account/delete-account`)
+            +form-change-status(`${prefixAdmin}/account/change-status`)
 
     script(src="/admin/js/product.js")
 

@@ -6,33 +6,36 @@ block main
     +flash-message-success(5000)
     +flash-message-error(5000)
 
-    .container.mt-5(form-add-product)
-        .row(font-setting)
-            .col-10
-                h2.inner-content.p-md-2 #{pageTitle}
-            .col-2
-                a(href="permission/create" class="btn btn-outline-dark") Add New
+    if(role.permission.includes("permission-view"))
+        .container.mt-5(form-add-product)
+            .row(font-setting)
+                .col-10
+                    h2.inner-content.p-md-2 #{pageTitle}
+                .col-2
+                    if(role.permission.includes("permission-add"))
+                        a(href="permission/create" class="btn btn-outline-dark") Add New
 
-        .card.mb-3(font-setting)
-            .card-header List of permission
-            .card-body
-                table(class="table table-hover table-sm align-middle")
-                    thead
-                        tr(class="inner-content")
-                            th.text-center(style="width: 70px;") No
-                            th(style="width: 250px;") Name
-                            th(style="width: 700px;") Description
-                            th.text-center Act
-                    each item, index in records
-                        tbody
+            .card.mb-3(font-setting)
+                .card-header List of permission
+                .card-body
+                    table(class="table table-hover table-sm align-middle")
+                        thead
                             tr(class="inner-content")
-                                td.text-center #{index + 1}
-                                td(class="inner-content") #{item.title}
-                                td !{item.description}
-                                td.text-center
-                                    a(class="btn btn-custom edit", href=`${prefixAdmin}/permission/edit/${item._id}`) Edit
-                                    button(class="btn btn-custom delete" button-delete-product data-id=item.id) Delete
-
-        +form-delele(`${prefixAdmin}/permission/delete-permission`)
+                                th.text-center(style="width: 70px;") No
+                                th(style="width: 250px;") Name
+                                th(style="width: 700px;") Description
+                                th.text-center Act
+                        tbody
+                            each item, index in records
+                                tr(class="inner-content")
+                                    td.text-center #{index + 1}
+                                    td(class="inner-content") #{item.title}
+                                    td !{item.description}
+                                    td.text-center
+                                        if(role.permission.includes("permission-edit"))
+                                            a(class="btn btn-custom edit", href=`${prefixAdmin}/permission/edit/${item._id}`) Edit
+                                        if(role.permission.includes("permission-delete"))
+                                            button(class="btn btn-custom delete" button-delete-product data-id=item.id) Delete
+            +form-delele(`${prefixAdmin}/permission/delete-permission`)
 
     script(src="/admin/js/product.js")

@@ -92,7 +92,7 @@ if (sort) {
     if (getKey && getValue) {
         let stringSort = `${getKey}-${getValue}`;
         const selected = sortSelect.querySelector(
-            `option[value=${stringSort}]`,
+            `option[value=${stringSort}]`
         );
         selected.selected = true;
     }
@@ -106,6 +106,7 @@ if (sort) {
 }
 // Sort End
 
+// Logout Button
 const logoutButton = document.querySelector("[logout-button]");
 if (logoutButton) {
     logoutButton.addEventListener("click", (e) => {
@@ -115,3 +116,20 @@ if (logoutButton) {
         }
     });
 }
+// Logout Button END
+
+// Flash Message Alert
+const flashMessage = document.querySelector("[show-alert]");
+if (flashMessage) {
+    const dataTime = parseInt(flashMessage.getAttribute("data-time"));
+
+    setTimeout(() => {
+        flashMessage.classList.add("alert-hidden");
+
+        // Delete
+        let parent = flashMessage.parentNode;
+        parent.removeChild(flashMessage);
+    }, dataTime);
+
+}
+// Flash Message Alert END

@@ -4,61 +4,61 @@ include ../../mixins/flash-message
 block main
     +flash-message-error(5000)
     +flash-message-success(5000)
-
-    .container.mt-5(form-add-product)
-        form(
-            action=`${prefixAdmin}/category/create?_method=POST`,
-            method='POST',
-            form-add-new-caterogy-product
-            enctype="multipart/form-data"
-        )
-            .row
-                .col-6
-                    h2.mb-4 #{pageTitle}
-                .col-4
+    if(role.permission.includes("product-category-add"))
+        .container.mt-5(form-add-product)
+            form(
+                action=`${prefixAdmin}/category/create?_method=POST`,
+                method='POST',
+                form-add-new-caterogy-product
+                enctype="multipart/form-data"
+            )
+                .row
+                    .col-6
+                        h2.mb-4 #{pageTitle}
+                    .col-4
+                        .row
+                            .col-5.form-check
+                                input#status.form-check-input(type='radio', name='status', value='active', checked='')
+                                label.form-check-label(for='status') Active
+                            .col-5.form-check
+                                input#status2.form-check-input(type='radio', name='status', value='inactive')
+                                label.form-check-label(for='status2') Inactive
+                    .col-2
+                        button.btn.btn-outline-dark(type='submit') Add New
+                .form-group
                     .row
-                        .col-5.form-check
-                            input#status.form-check-input(type='radio', name='status', value='active', checked='')
-                            label.form-check-label(for='status') Active
-                        .col-5.form-check
-                            input#status2.form-check-input(type='radio', name='status', value='inactive')
-                            label.form-check-label(for='status2') Inactive
-                .col-2
-                    button.btn.btn-outline-dark(type='submit') Add New
-            .form-group
-                .row
-                    .col-md-4
-                        label(label-margin for='title') Title
-                        input#title.form-control(type='text', name='title', placeholder='Enter title', required='')
-            .form-group
-                .row
-                    .col-md-4
-                        label(label-margin for='parent_id') Parent category
-                        select#parent_id.form-select(name="parent_id")
-                            option(selected='') Select the parent category
-                            each item in records
-                                option(value=item.id) #{item.title}
+                        .col-md-4
+                            label(label-margin for='title') Title
+                            input#title.form-control(type='text', name='title', placeholder='Enter title', required='')
+                .form-group
+                    .row
+                        .col-md-4
+                            label(label-margin for='parent_id') Parent category
+                            select#parent_id.form-select(name="parent_id")
+                                option(selected='') Select the parent category
+                                each item in records
+                                    option(value=item.id) #{item.title}
 
-            .form-group
-                .row
-                    .col-md-4
-                        label(label-margin for='position') Position
-                        input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)')
+                .form-group
+                    .row
+                        .col-md-4
+                            label(label-margin for='position') Position
+                            input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)')
 
-            .form-group
-                label(label-margin for='description') Description
-                textarea#description(class="form-control tinymce" name='description', rows='1', placeholder='Enter product description')
+                .form-group
+                    label(label-margin for='description') Description
+                    textarea#description(class="form-control tinymce" name='description', rows='1', placeholder='Enter product description')
 
-            .form-group(upload-image)
-                .row
-                    .col-6
-                        label(label-margin for='thumbnail') Picture
-                        input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
-                    .col-6
-                        img(
-                            src=""
-                            upload-image-preview
-                        )
+                .form-group(upload-image)
+                    .row
+                        .col-6
+                            label(label-margin for='thumbnail') Picture
+                            input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
+                        .col-6
+                            img(
+                                src=""
+                                upload-image-preview
+                            )
 
 
     script(src="/admin/js/product.js")

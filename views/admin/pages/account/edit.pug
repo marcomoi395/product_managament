@@ -4,62 +4,62 @@ include ../../mixins/flash-message
 block main
     +flash-message-error(5000)
     +flash-message-success(5000)
-
-    .container.mt-5(form-add-product)
-        form(
-            action=`${prefixAdmin}/account/edit/${record.id}?_method=PATCH`,
-            method='POST',
-            form-add-new-product
-            enctype="multipart/form-data"
-        )
-            .row
-                .col-6
-                    h2.mb-4 #{pageTitle}
-                .col-4
+    if(role.permission.includes("account-edit"))
+        .container.mt-5(form-add-product)
+            form(
+                action=`${prefixAdmin}/account/edit/${record.id}?_method=PATCH`,
+                method='POST',
+                form-add-new-product
+                enctype="multipart/form-data"
+            )
+                .row
+                    .col-6
+                        h2.mb-4 #{pageTitle}
+                    .col-4
+                        .row
+                            .col-5.form-check
+                                input#status.form-check-input(type='radio', name='status', value='active', checked=(record.status === "active"))
+                                label.form-check-label(for='status') Active
+                            .col-5.form-check
+                                input#status2.form-check-input(type='radio', name='status', value='inactive' checked=(record.status === "inactive"))
+                                label.form-check-label(for='status2') Inactive
+                    .col-2
+                        button.btn.btn-outline-dark(type='submit') Apply
+                .form-group
+                    .col-md-4
+                        label(label-margin for='fullname') Full name
+                        input#fullName.form-control(type='text', name='fullName', placeholder='Enter full name', required, value=record.fullName)
+                .form-group
                     .row
-                        .col-5.form-check
-                            input#status.form-check-input(type='radio', name='status', value='active', checked=(record.status === "active"))
-                            label.form-check-label(for='status') Active
-                        .col-5.form-check
-                            input#status2.form-check-input(type='radio', name='status', value='inactive' checked=(record.status === "inactive"))
-                            label.form-check-label(for='status2') Inactive
-                .col-2
-                    button.btn.btn-outline-dark(type='submit') Apply
-            .form-group
-                .col-md-4
-                    label(label-margin for='fullname') Full name
-                    input#fullName.form-control(type='text', name='fullName', placeholder='Enter full name', required, value=record.fullName)
-            .form-group
-                .row
+                        .col-md-4
+                            label(label-margin for='email') Email
+                            input#email.form-control(type='email', name='email', placeholder='Enter email', required, value=record.email)
+                        .col-md-4
+                            label(label-margin for='password') Password
+                            input#password.form-control(type='password', name='password', placeholder='Enter password')
+                .form-group
                     .col-md-4
-                        label(label-margin for='email') Email
-                        input#email.form-control(type='email', name='email', placeholder='Enter email', required, value=record.email)
+                        label(label-margin for='phone') Phone number
+                        input#phone.form-control(type='number', name='phone', placeholder='Enter phone number' value=record.phone)
+                .form-group
                     .col-md-4
-                        label(label-margin for='password') Password
-                        input#password.form-control(type='password', name='password', placeholder='Enter password')
-            .form-group
-                .col-md-4
-                    label(label-margin for='phone') Phone number
-                    input#phone.form-control(type='number', name='phone', placeholder='Enter phone number' value=record.phone)
-            .form-group
-                .col-md-4
-                    label(label-margin for='role_id') Permission
-                    select#role_id.form-select(name='role_id')
-                        each role in roles
-                            if(role.id === record.role_id)
-                                option(value=role.id selected) #{role.title}
-                            else
-                                option(value=role.id) #{role.title}
-            .form-group(upload-image)
-                .row
-                    .col-md-4
-                        label(label-margin for='thumbnail') Avatar
-                        input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
-                    .col-md-4
-                        img(
-                            src=record.thumbnail
-                            upload-image-preview
-                        )
+                        label(label-margin for='role_id') Permission
+                        select#role_id.form-select(name='role_id')
+                            each role in roles
+                                if(role.id === record.role_id)
+                                    option(value=role.id selected) #{role.title}
+                                else
+                                    option(value=role.id) #{role.title}
+                .form-group(upload-image)
+                    .row
+                        .col-md-4
+                            label(label-margin for='thumbnail') Avatar
+                            input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
+                        .col-md-4
+                            img(
+                                src=record.thumbnail
+                                upload-image-preview
+                            )
 
 
     script(src="/admin/js/product.js")

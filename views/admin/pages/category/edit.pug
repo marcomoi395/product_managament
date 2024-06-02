@@ -4,51 +4,51 @@ include ../../mixins/flash-message
 block main
     +flash-message-error(5000)
     +flash-message-success(5000)
-
-    .container.mt-5(form-add-product)
-        form(
-            action=`${prefixAdmin}/category/edit/${product.id}?_method=PATCH`,
-            method='POST',
-            form-edit-product
-            enctype="multipart/form-data"
-        )
-            .row
-                .col-6
-                    h2.mb-4 #{pageTitle}
-                .col-4
+    if(role.permission.includes("product-category-edit"))
+        .container.mt-5(form-add-product)
+            form(
+                action=`${prefixAdmin}/category/edit/${product.id}?_method=PATCH`,
+                method='POST',
+                form-edit-product
+                enctype="multipart/form-data"
+            )
+                .row
+                    .col-6
+                        h2.mb-4 #{pageTitle}
+                    .col-4
+                        .row
+                            .col-5.form-check
+                                input#status.form-check-input(type='radio', name='status', value='active', checked=(product.status === "active"))
+                                label.form-check-label(for='status') Active
+                            .col-5.form-check
+                                input#status2.form-check-input(type='radio', name='status', value='inactive' checked=(product.status === "inactive"))
+                                label.form-check-label(for='status2') Inactive
+                    .col-2
+                        button.btn.btn-outline-dark(type='submit') Apply
+                .form-group
                     .row
-                        .col-5.form-check
-                            input#status.form-check-input(type='radio', name='status', value='active', checked=(product.status === "active"))
-                            label.form-check-label(for='status') Active
-                        .col-5.form-check
-                            input#status2.form-check-input(type='radio', name='status', value='inactive' checked=(product.status === "inactive"))
-                            label.form-check-label(for='status2') Inactive
-                .col-2
-                    button.btn.btn-outline-dark(type='submit') Apply
-            .form-group
-                .row
-                    .col-md-4
-                        label(label-margin for='title') Title
-                        input#title.form-control(type='text', name='title', placeholder='Enter title', required='', value=product.title)
-            .form-group
-                .row
-                    .col-md-4
-                        label(label-margin for='position') Position
-                        input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)', value=product.position)
+                        .col-md-4
+                            label(label-margin for='title') Title
+                            input#title.form-control(type='text', name='title', placeholder='Enter title', required='', value=product.title)
+                .form-group
+                    .row
+                        .col-md-4
+                            label(label-margin for='position') Position
+                            input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)', value=product.position)
 
-            .form-group
-                label(label-margin for='description') Description
-                textarea#description.form-control.tinymce(name='description', rows='3', placeholder='Enter product description') #{product.description}
+                .form-group
+                    label(label-margin for='description') Description
+                    textarea#description.form-control.tinymce(name='description', rows='3', placeholder='Enter product description') #{product.description}
 
-            .form-group(upload-image)
-                .row
-                    .col-6
-                        label(label-margin for='thumbnail') Picture
-                        input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input value=product.author)
-                    .col-6
-                        img(
-                            src=product.thumbnail
-                            upload-image-preview
-                        )
+                .form-group(upload-image)
+                    .row
+                        .col-6
+                            label(label-margin for='thumbnail') Picture
+                            input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input value=product.author)
+                        .col-6
+                            img(
+                                src=product.thumbnail
+                                upload-image-preview
+                            )
 
     script(src="/admin/js/product.js")

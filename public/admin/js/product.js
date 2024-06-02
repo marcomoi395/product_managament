@@ -8,9 +8,11 @@ if (status.length > 0) {
         button.addEventListener("click", (event) => {
             let currentStatus = button.getAttribute("data-status");
             let idProduct = button.getAttribute("data-id");
-            let changeStatus = currentStatus === "active" ? "inactive" : "active";
+            let changeStatus =
+                currentStatus === "active" ? "inactive" : "active";
 
-            formChangeStatus.action = path + `/${changeStatus}/${idProduct}?_method=PATCH`;
+            formChangeStatus.action =
+                path + `/${changeStatus}/${idProduct}?_method=PATCH`;
             formChangeStatus.submit();
         });
     });
@@ -20,8 +22,8 @@ if (status.length > 0) {
 // Check Box All
 const checkBoxMulti = document.querySelector("[checkbox-multi]");
 if (checkBoxMulti) {
-    const checkBoxId = document.querySelectorAll("[name=\"check-id\"]");
-    const checkBoxAll = document.querySelector("[name=\"checkall\"]");
+    const checkBoxId = document.querySelectorAll('[name="check-id"]');
+    const checkBoxAll = document.querySelector('[name="checkall"]');
     checkBoxAll.addEventListener("click", () => {
         if (checkBoxAll.checked)
             checkBoxId.forEach((e) => {
@@ -34,10 +36,11 @@ if (checkBoxMulti) {
         }
     });
 
-
     checkBoxId.forEach((e) => {
         e.addEventListener("click", () => {
-            const countCheckTrue = document.querySelectorAll("[name=\"check-id\"]:checked").length;
+            const countCheckTrue = document.querySelectorAll(
+                '[name="check-id"]:checked',
+            ).length;
             checkBoxAll.checked = checkBoxId.length === countCheckTrue;
         });
     });
@@ -45,22 +48,30 @@ if (checkBoxMulti) {
 // Check Box All END
 
 // Form Change Multi
-const formChangeStatusMulti = document.querySelector("[form-change-status-multi]");
+const formChangeStatusMulti = document.querySelector(
+    "[form-change-status-multi]",
+);
 if (formChangeStatusMulti) {
     formChangeStatusMulti.addEventListener("submit", (e) => {
         e.preventDefault();
-        const checkBoxChecked = checkBoxMulti.querySelectorAll("input[name=\"check-id\"]:checked");
-        const inputIds = document.querySelector("[name=\"ids\"]");
-        const statusSelect = document.querySelector("[name=\"type\"]");
+        const checkBoxChecked = checkBoxMulti.querySelectorAll(
+            'input[name="check-id"]:checked',
+        );
+        const inputIds = document.querySelector('[name="ids"]');
+        const statusSelect = document.querySelector('[name="type"]');
         if (statusSelect.value === "delete") {
-            const isConfirm = window.confirm("Bạn có chắc là muốn xóa không???");
+            const isConfirm = window.confirm(
+                "Bạn có chắc là muốn xóa không???",
+            );
             if (!isConfirm) {
                 return;
             }
         }
 
         if (statusSelect.value === "restore") {
-            const isConfirm = window.confirm("Bạn có chắc là muốn khôi phục không???");
+            const isConfirm = window.confirm(
+                "Bạn có chắc là muốn khôi phục không???",
+            );
             if (!isConfirm) {
                 return;
             }
@@ -70,7 +81,9 @@ if (formChangeStatusMulti) {
             let ids = [];
             checkBoxChecked.forEach((e) => {
                 if (statusSelect.value === "change-position") {
-                    const positionWantChange = e.closest("tr").querySelector("[name=\"position\"]").value;
+                    const positionWantChange = e
+                        .closest("tr")
+                        .querySelector('[name="position"]').value;
                     ids.push(`${e.value}-${positionWantChange}`);
                 } else ids.push(e.value);
             });
@@ -79,8 +92,7 @@ if (formChangeStatusMulti) {
             formChangeStatusMulti.submit();
         } else if (statusSelect.value === "Select") {
             alert("Select the appropriate status");
-        } else
-            alert("Select at least one product");
+        } else alert("Select at least one product");
     });
 }
 // Form Change Multi End
@@ -92,7 +104,7 @@ if (deleteProduct.length > 0) {
     const formDeleteProduct = document.querySelector("#form-delete-product");
     const path = formDeleteProduct.getAttribute("data-path");
 
-    deleteProduct.forEach(button => {
+    deleteProduct.forEach((button) => {
         button.addEventListener("click", (event) => {
             let isConfirm = window.confirm("Bạn có chắc là muốn xóa không???");
             if (isConfirm) {
@@ -104,19 +116,3 @@ if (deleteProduct.length > 0) {
         });
     });
 }
-
-// Flash Message Alert
-const flashMessage = document.querySelector("[show-alert]");
-if (flashMessage) {
-    const dataTime = parseInt(flashMessage.getAttribute("data-time"));
-
-    setTimeout(() => {
-        flashMessage.classList.add("alert-hidden");
-
-        // Delete
-        let parent = flashMessage.parentNode;
-        parent.removeChild(flashMessage);
-    }, dataTime);
-
-}
-// Flash Message Alert END

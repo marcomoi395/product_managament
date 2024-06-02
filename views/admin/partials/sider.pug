@@ -2,18 +2,23 @@
     .inner-menu
         ul
             li
-                a(href=`${prefixAdmin}`) Dashboard
-            li
-                a(href=`${prefixAdmin}/category`) Product portfolio
-            li
-                a(href=`${prefixAdmin}/products`) List of products
-            li
-                a(href=`${prefixAdmin}/permission`) Permission Group
-            li
-                a(href=`${prefixAdmin}/decentralization`) Decentralization
-            li
-                a(href=`${prefixAdmin}/account`) Account List
-            li
-                a(href=`${prefixAdmin}/recycle-bin`) Recycle Bin
+                a(href=`${prefixAdmin}/dashboard`) Dashboard
+            if(role.permission.includes("product-category-view"))
+                li
+                    a(href=`${prefixAdmin}/category`) Product portfolio
+            if(role.permission.includes("product-view"))
+                li
+                    a(href=`${prefixAdmin}/products`) List of products
+            if(role.permission.includes("permission-view"))
+                li
+                    a(href=`${prefixAdmin}/permission`) Permission Group
+                li
+                    a(href=`${prefixAdmin}/decentralization`) Decentralization
+            if(role.permission.includes("account-view"))
+                li
+                    a(href=`${prefixAdmin}/account`) Account List
+            if(role.permission.includes("product-view"))
+                li
+                    a(href=`${prefixAdmin}/recycle-bin`) Recycle Bin
             li
                 a(href=`${prefixAdmin}/auth/logout` logout-button) Log Out

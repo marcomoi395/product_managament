@@ -9,6 +9,11 @@ const systemConfig = require("../../config/system");
 
 // GET /login
 module.exports.login = async (req, res) => {
+    if (req.cookies.token) {
+        res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
+        return;
+    }
+
     res.render("admin/pages/auth/login", {
         pageTitle: "Login",
     });
@@ -45,7 +50,7 @@ module.exports.loginPost = async (req, res) => {
 
     res.cookie("token", user.token);
     req.flash("success", "Login successfully");
-    res.redirect(`${systemConfig.prefixAdmin}`);
+    res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
 };
 
 module.exports.logout = async (req, res) => {

@@ -11,15 +11,12 @@ if (tablePermission) {
             if (name === "id") {
                 const inputs = row.querySelectorAll("input");
                 inputs.forEach(input => {
-                    permissionList.push({id: input.value});
+                    permissionList.push({ id: input.value, permission: [] });
                 });
             } else {
                 const inputs = row.querySelectorAll("input");
                 inputs.forEach((input, index) => {
                     if (input.checked) {
-                        if (!permissionList[index].permission) {
-                            permissionList[index].permission = [];
-                        }
                         permissionList[index].permission.push(name);
                     }
                 });
