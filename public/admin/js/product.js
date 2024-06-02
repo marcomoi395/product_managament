@@ -20,8 +20,8 @@ if (status.length > 0) {
 // Check Box All
 const checkBoxMulti = document.querySelector("[checkbox-multi]");
 if (checkBoxMulti) {
-    const checkBoxId = document.querySelectorAll('[name="check-id"]');
-    const checkBoxAll = document.querySelector('[name="checkall"]');
+    const checkBoxId = document.querySelectorAll("[name=\"check-id\"]");
+    const checkBoxAll = document.querySelector("[name=\"checkall\"]");
     checkBoxAll.addEventListener("click", () => {
         if (checkBoxAll.checked)
             checkBoxId.forEach((e) => {
@@ -37,7 +37,7 @@ if (checkBoxMulti) {
 
     checkBoxId.forEach((e) => {
         e.addEventListener("click", () => {
-            const countCheckTrue = document.querySelectorAll('[name="check-id"]:checked').length;
+            const countCheckTrue = document.querySelectorAll("[name=\"check-id\"]:checked").length;
             checkBoxAll.checked = checkBoxId.length === countCheckTrue;
         });
     });
@@ -49,9 +49,9 @@ const formChangeStatusMulti = document.querySelector("[form-change-status-multi]
 if (formChangeStatusMulti) {
     formChangeStatusMulti.addEventListener("submit", (e) => {
         e.preventDefault();
-        const checkBoxChecked = checkBoxMulti.querySelectorAll('input[name="check-id"]:checked');
-        const inputIds = document.querySelector('[name="ids"]');
-        const statusSelect = document.querySelector('[name="type"]');
+        const checkBoxChecked = checkBoxMulti.querySelectorAll("input[name=\"check-id\"]:checked");
+        const inputIds = document.querySelector("[name=\"ids\"]");
+        const statusSelect = document.querySelector("[name=\"type\"]");
         if (statusSelect.value === "delete") {
             const isConfirm = window.confirm("Bạn có chắc là muốn xóa không???");
             if (!isConfirm) {
@@ -70,7 +70,7 @@ if (formChangeStatusMulti) {
             let ids = [];
             checkBoxChecked.forEach((e) => {
                 if (statusSelect.value === "change-position") {
-                    const positionWantChange = e.closest("tr").querySelector('[name="position"]').value;
+                    const positionWantChange = e.closest("tr").querySelector("[name=\"position\"]").value;
                     ids.push(`${e.value}-${positionWantChange}`);
                 } else ids.push(e.value);
             });
@@ -87,7 +87,6 @@ if (formChangeStatusMulti) {
 
 // Delete
 const deleteProduct = document.querySelectorAll("[button-delete-product]");
-console.log(deleteProduct);
 
 if (deleteProduct.length > 0) {
     const formDeleteProduct = document.querySelector("#form-delete-product");
@@ -110,7 +109,6 @@ if (deleteProduct.length > 0) {
 const flashMessage = document.querySelector("[show-alert]");
 if (flashMessage) {
     const dataTime = parseInt(flashMessage.getAttribute("data-time"));
-    console.log(dataTime);
 
     setTimeout(() => {
         flashMessage.classList.add("alert-hidden");

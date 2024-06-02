@@ -47,3 +47,9 @@ module.exports.loginPost = async (req, res) => {
     req.flash("success", "Login successfully");
     res.redirect(`${systemConfig.prefixAdmin}`);
 };
+
+module.exports.logout = async (req, res) => {
+    res.clearCookie("token");
+    req.flash("success", "Logout successfully");
+    res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
+};

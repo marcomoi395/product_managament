@@ -1,7 +1,7 @@
 // Button status
 const buttonStatus = document.querySelectorAll("[button-status]");
-if (buttonStatus) {
-    buttonStatus.forEach(button => {
+if (buttonStatus.length > 0) {
+    buttonStatus.forEach((button) => {
         let url = new URL(window.location.href);
 
         button.addEventListener("click", () => {
@@ -64,8 +64,7 @@ if (formUploadImage) {
 
     uploadImageInput.addEventListener("change", (e) => {
         const [file] = uploadImageInput.files;
-        if (file)
-            uploadImagePreview.src = URL.createObjectURL(file);
+        if (file) uploadImagePreview.src = URL.createObjectURL(file);
         else {
             uploadImagePreview.src = "";
         }
@@ -82,11 +81,8 @@ if (sort) {
 
     sortSelect.addEventListener("change", (e) => {
         const [key, value] = e.target.value.split("-");
-        console.log(e.target.value);
         url.searchParams.set("sortKey", key);
         url.searchParams.set("sortValue", value);
-        console.log(url.href);
-
         window.location.href = url.href;
     });
 
@@ -95,7 +91,9 @@ if (sort) {
 
     if (getKey && getValue) {
         let stringSort = `${getKey}-${getValue}`;
-        const selected = sortSelect.querySelector(`option[value=${stringSort}]`);
+        const selected = sortSelect.querySelector(
+            `option[value=${stringSort}]`,
+        );
         selected.selected = true;
     }
 
@@ -108,4 +106,12 @@ if (sort) {
 }
 // Sort End
 
-
+const logoutButton = document.querySelector("[logout-button]");
+if (logoutButton) {
+    logoutButton.addEventListener("click", (e) => {
+        const confirm = window.confirm("Do you want to log out?");
+        if (!confirm) {
+            e.preventDefault();
+        }
+    });
+}
