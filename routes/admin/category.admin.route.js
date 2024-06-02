@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const multer = require('multer');
+const multer = require("multer");
 const upload = multer();
 const controller = require("../../controllers/admin/category.admin.controller");
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
-const validate = require("../../validate/admin/product.validate");
-
+const validate = require("../../validate/admin/category.validate");
 
 router.get("/", controller.index);
 
@@ -13,9 +12,10 @@ router.get("/create", controller.createCategoryProduct);
 
 router.post(
     "/create",
-    upload.single('thumbnail'),
+    upload.single("thumbnail"),
     uploadCloud.upload,
-    controller.createCategoryProductPost
+    validate.createPost,
+    controller.createCategoryProductPost,
 );
 
 router.patch("/change-multi", controller.changeMulti);
@@ -28,12 +28,12 @@ router.get("/edit/:id", controller.editCategoryProduct);
 
 router.patch(
     "/edit/:id",
-    upload.single('thumbnail'),
+    upload.single("thumbnail"),
     uploadCloud.upload,
-    controller.editCategoryProductPatch
+    validate.createPost,
+    controller.editCategoryProductPatch,
 );
 
 router.get("/detail/:slug", controller.detailCategoryProduct);
-
 
 module.exports = router;

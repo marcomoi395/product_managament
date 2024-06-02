@@ -5,6 +5,7 @@ const recycleBinRouter = require("./recyclebin.admin.route");
 const permissonRouter = require("./permission.admin.route");
 const decentralizationRouter = require("./decentralization.admin.route");
 const accountRouter = require("./account.admin.route");
+const authRouter = require("./auth.admin.route");
 const systemConfig = require("../../config/system");
 
 module.exports = (app) => {
@@ -23,4 +24,6 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/decentralization", decentralizationRouter);
 
     app.use(PATH_ADMIN + "/account", accountRouter);
+
+    app.use(PATH_ADMIN + "/auth", authRouter);
 };

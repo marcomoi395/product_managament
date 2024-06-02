@@ -1,0 +1,29 @@
+extends ../../layout/login
+include ../../mixins/flash-message
+
+block main
+    +flash-message-success(5000)
+    +flash-message-error(5000)
+    .container.mt-5(form-add-product)
+        .row(font-setting)
+            .col-10
+                h2.inner-content.p-md-2 #{pageTitle}
+        .row
+            .col-2
+            .col-6
+                form(
+                    action=`${prefixAdmin}/auth/login?_method=POST`,
+                    method='POST'
+                )
+                    .row.mb-3
+                        label.col-sm-2.col-form-label(for='inputEmail3') Email
+                        .col-sm-10
+                            input#inputEmail3.form-control(type='email', name='email')
+                    .row.mb-3
+                        label.col-sm-2.col-form-label(for='inputPassword3') Password
+                        .col-sm-10
+                            input#inputPassword3.form-control(type='password', name='password')
+                    button.btn.btn-outline-dark(type='submit') Sign in
+
+    script(src="/admin/js/product.js")
+
