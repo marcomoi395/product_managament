@@ -1,0 +1,33 @@
+extends ../../layout/default
+include ../../mixins/flash-message
+include ../../mixins/format-time
+
+block main
+    .container.mt-5(form-add-product)
+        .row
+            .col-3.mb-lg-5
+                .inner-image
+                    img(
+                        src=user.thumbnail
+                        image-detail
+                    )
+            .col-6
+                ul(class="list-group list-group-flush list-detail")
+                    li(class="list-group-item")
+                        Strong Full name:
+                        |  #{user.fullName}
+                    li(class="list-group-item")
+                        Strong Email:
+                        |  #{user.email}
+                    li(class="list-group-item")
+                        Strong Permissions:
+                        |  #{roleTitle}
+                    li(class="list-group-item")
+                        Strong Phone:
+                        |  #{user.phone}
+                    li(class="list-group-item")
+                        Strong Created at:
+                        |
+                        +formatDate(user.createdAt)
+                    a(class="btn btn-outline-dark button-in-detail", href=`${prefixAdmin}/my-account/edit`) Edit
+    script(src="/admin/js/product.js")

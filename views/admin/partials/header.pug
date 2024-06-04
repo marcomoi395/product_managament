@@ -1,8 +1,11 @@
 header.header
     .container-fluid
         .row.align-items-center
-            .col-3
+            .col-9
                 .inner-logo
                     a(href=`${prefixAdmin}`)
-                        img(src="/images/Logo.jpg", alt="Logo")
-            .col-9
+                        img(src="/images/Logo.jpg", alt="Logo" logo)
+            .col-3
+                .inner-logo.text-end
+                    a(href=`${prefixAdmin}/my-account`)
+                        img(src=user.thumbnail, alt="Logo" anchor-my-account)

@@ -3,7 +3,7 @@ include ../../mixins/flash-message
 
 block main
     +flash-message-error(5000)
-    
+
     if(role.permission.includes("account-add"))
         .container.mt-5(form-add-product)
             form(
@@ -36,7 +36,7 @@ block main
                             input#email.form-control(type='text', name='email', placeholder='Enter email', required)
                         .col-md-4
                             label(label-margin for='password') Password
-                            input#password.form-control(type='text', name='password', placeholder='Enter password' required)
+                            input#password.form-control(type='password', name='password', placeholder='Enter password' required)
                 .form-group
                     .col-md-4
                         label(label-margin for='phone') Phone number

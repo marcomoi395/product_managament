@@ -1,0 +1,46 @@
+extends ../../layout/default
+include ../../mixins/flash-message
+
+block main
+    +flash-message-error(5000)
+    +flash-message-success(5000)
+    .container.mt-5(form-add-product)
+        form(
+            action=`${prefixAdmin}/my-account/edit?_method=PATCH`,
+            method='POST',
+            form-add-new-product
+            enctype="multipart/form-data"
+        )
+            .row
+                .col-6
+                    h2.mb-4 #{pageTitle}
+                .col-4
+
+                .col-2
+                    button.btn.btn-outline-dark(type='submit') Apply
+            .form-group
+                .col-md-4
+                    label(label-margin for='fullname') Full name
+                    input#fullName.form-control(type='text', name='fullName', placeholder='Enter full name', required, value=user.fullName).form-group
+                .row
+                    .col-md-4
+                        label(label-margin for='email') Email
+                        input#email.form-control(type='email', name='email', placeholder='Enter email', required, value=user.email)
+                    .col-md-4
+                        label(label-margin for='password') Password
+                        input#password.form-control(type='password', name='password', placeholder='Enter password').form-group
+                .col-md-4
+                    label(label-margin for='phone') Phone number
+                    input#phone.form-control(type='number', name='phone', placeholder='Enter phone number' value=user.phone)
+            .form-group(upload-image)
+                .row
+                    .col-md-4
+                        label(label-margin for='thumbnail') Avatar
+                        input#thumbnail.form-control(type='file' class="form-control" name='thumbnail', accept="image/*" upload-image-input)
+                    .col-md-4
+                        img(
+                            src=user.thumbnail
+                            upload-image-preview
+                        )
+
+    script(src="/admin/js/product.js")
