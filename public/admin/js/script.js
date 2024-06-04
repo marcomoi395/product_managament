@@ -130,6 +130,5 @@ if (flashMessage) {
         let parent = flashMessage.parentNode;
         parent.removeChild(flashMessage);
     }, dataTime);
-
 }
 // Flash Message Alert END

@@ -12,7 +12,11 @@ module.exports.index = async (req, res) => {
 
     // Filter status
     if (req.query.status) {
-        find.status = req.query.status;
+        if (req.query.status === "featured") {
+            find.featured = true; //Trường hợp dành cho featured
+        } else {
+            find.status = req.query.status;
+        }
     }
     // Filter status END
 
@@ -140,6 +144,36 @@ module.exports.changeMulti = async (req, res) => {
             "success",
             `Successfully changed the position of ${ids.length} products`,
         );
+    }
+    // Featured
+    else if (statusChange === "featured") {
+        await Product.updateMany(
+            { _id: { $in: ids } },
+            {
+                $set: { featured: true },
+                $push: {
+                    editedBy: editedBy,
+                },
+            },
+        );
+
+        // Flash Messages
+        req.flash("success", `Successfully deleted ${ids.length} products`);
+    }
+    //Featureless
+    else if (statusChange === "featureless") {
+        await Product.updateMany(
+            { _id: { $in: ids } },
+            {
+                $set: { featured: false },
+                $push: {
+                    editedBy: editedBy,
+                },
+            },
+        );
+
+        // Flash Messages
+        req.flash("success", `Successfully deleted ${ids.length} products`);
     } else {
         await Product.updateMany(
             { _id: { $in: ids } },
@@ -198,6 +232,10 @@ module.exports.createProduct = async (req, res) => {
 module.exports.createProductPost = async (req, res) => {
     const data = req.body;
 
+    if (data.featured === "on") {
+        data.featured = true;
+    }
+
     if (data.price) data.price = parseInt(data.price);
 
     if (data.stock) data.stock = parseInt(data.stock);
@@ -251,6 +289,10 @@ module.exports.editProduct = async (req, res) => {
 module.exports.editProductPatch = async (req, res) => {
     const data = req.body;
     const id = req.params.id;
+
+    if (data.featured === "on") {
+        data.featured = true;
+    }
 
     const editedBy = {
         fullName: res.locals.user.fullName,

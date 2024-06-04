@@ -43,10 +43,15 @@ block main
                         .col-md-4
                             label(label-margin for='position') Position
                             input#position.form-control(type='number', step='0.01', name='position', placeholder='Enter position (default will be first)')
-
+                .form-group
+                    .row
+                        .col-md-4
+                            .form-check.form-switch(label-margin)
+                                label.form-check-label(for='featured') Featured
+                                input#featured.form-check-input(type='checkbox', role='switch', name='featured')
                 .form-group
                     label(label-margin for='description') Description
-                    textarea#description(class="form-control tinymce" name='description ', rows='3', placeholder='Enter product description')
+                    textarea#description(class="form-control tinymce" name='description', rows='3', placeholder='Enter product description')
                 .form-group(upload-image)
                     .row
                         .col-6

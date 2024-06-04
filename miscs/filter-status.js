@@ -3,25 +3,32 @@ module.exports = (req) => {
         {
             name: "All",
             status: "",
-            class: ""
+            class: "",
         },
         {
             name: "Active",
             status: "active",
-            class: ""
+            class: "",
         },
         {
             name: "Inactive",
             status: "inactive",
-            class: ""
-        }
+            class: "",
+        },
+        {
+            name: "Featured",
+            status: "featured",
+            class: "",
+        },
     ];
 
     if (req.query.status) {
-        const index = filterStatus.findIndex(item => item.status === req.query.status);
+        const index = filterStatus.findIndex(
+            (item) => item.status === req.query.status,
+        );
         filterStatus[index].class = "active";
     } else {
-        const index = filterStatus.findIndex(item => item.status === "");
+        const index = filterStatus.findIndex((item) => item.status === "");
         filterStatus[index].class = "active";
     }
     return filterStatus;

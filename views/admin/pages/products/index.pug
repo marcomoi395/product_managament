@@ -46,6 +46,7 @@ block main
                                 th.text-center Picture
                                 th Title
                                 th.text-center Author
+                                th.text-center Featured
                                 th.text-center Price
                                 th.text-center Position
                                 th.text-center Status
@@ -70,8 +71,11 @@ block main
                                                 )
                                     td(class="inner-content")
                                         a(href=`${prefixAdmin}/products/detail/${item.slug}` title-product) #{item.title}
-
                                     td.text-center(class="inner-content") #{item.author}
+                                    th.text-center
+                                        if(item.featured)
+                                            svg.bi.bi-check-lg(xmlns='http://www.w3.org/2000/svg', width='16', height='16', fill='currentColor', viewBox='0 0 16 16')
+                                                path(d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z')
                                     td.text-center(class="inner-content") #{item.price}$
                                     td.text-center
                                         if(role.permission.includes("product-edit"))
