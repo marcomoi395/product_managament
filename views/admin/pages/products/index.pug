@@ -7,6 +7,7 @@ include ../../mixins/form-change-status
 include ../../mixins/flash-message
 include ../../mixins/form-delete
 include ../../mixins/sort
+include ../../mixins/format-time
 
 block main
     +flash-message-success(5000)
@@ -48,6 +49,8 @@ block main
                                 th.text-center Price
                                 th.text-center Position
                                 th.text-center Status
+                                th.text-center Created By
+                                th.text-center Edited By
                                 th.text-center Act
                         each item, index in products
                             tbody
@@ -85,6 +88,16 @@ block main
                                                 b(class="btn btn-custom status-active" data-status=item.status data-id=item.id button-change-status) Active
                                             else
                                                 b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
+                                    td.text-center
+                                        if(item.createdBy.fullName !== undefined)
+                                            p #{item.createdBy.fullName}
+                                            p
+                                                +formatDate(item.createdBy.createdAt)
+                                    td.text-center
+                                        if(item.editedBy.length > 0)
+                                            p #{item.editedBy[item.editedBy.length - 1].fullName}
+                                            p
+                                                +formatDate(item.editedBy[item.editedBy.length - 1].editedAt)
                                     td.text-center
                                         if(role.permission.includes("product-edit"))
                                             a(class="btn btn-custom edit", href=`${prefixAdmin}/products/edit/${item._id}`) Edit

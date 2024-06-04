@@ -7,6 +7,7 @@ include ../../mixins/form-change-status
 include ../../mixins/form-change-multi-recycle-bin
 include ../../mixins/flash-message
 include ../../mixins/sort
+include ../../mixins/format-time
 
 block main
     +flash-message-success(5000)
@@ -39,6 +40,7 @@ block main
                                 th Title
                                 th.text-center Author
                                 th.text-center Price
+                                th.text-center Delete By
                                 th.text-center Act
                         each item, index in products
                             tbody
@@ -57,6 +59,11 @@ block main
                                     td(class="inner-content") #{item.title}
                                     td.text-center(class="inner-content") #{item.author}
                                     td.text-center(class="inner-content") #{item.price}$
+                                    td.text-center(class="inner-content")
+                                        p #{item.deletedBy[item.deletedBy.length - 1].fullName}
+                                        p
+                                            +formatDateTime(item.deletedBy[item.deletedBy.length - 1].deletedAt)
+
                                     td.text-center
                                         if(role.permission.includes("product-restore"))
                                             button.delete(class="btn btn-custom delete" button-restore-product data-id=item.id) Restore

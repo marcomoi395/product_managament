@@ -31,6 +31,7 @@ module.exports.index = async (req, res) => {
     } else {
         sort.position = "desc";
     }
+
     // Sort END
     const products = await Product.find(find)
         .sort(sort)
@@ -48,9 +49,20 @@ module.exports.index = async (req, res) => {
 
 // PATCH /change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
+    const data = req.body;
+    data.status = req.params.status;
+    const editedBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        editedAt: Date.now(),
+    };
+
     await Product.updateOne(
         { _id: req.params.id },
-        { status: req.params.status },
+        {
+            ...data,
+            $push: { editedBy: editedBy },
+        },
     );
 
     // Flash Messages
@@ -61,16 +73,37 @@ module.exports.changeStatus = async (req, res) => {
 
 // PATCH /change-multi
 module.exports.changeMulti = async (req, res) => {
-    let statusChange = req.body.type;
-    let ids = req.body.ids.split(", ");
+    const data = req.body;
+    let statusChange = data.type;
+    let ids = data.ids.split(", ");
+
+    const editedBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        editedAt: Date.now(),
+    };
+
+    const deletedBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        deletedAt: Date.now(),
+    };
+
+    const restoredBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        restoredAt: Date.now(),
+    };
+
     if (statusChange === "delete") {
         await Product.updateMany(
             { _id: { $in: ids } },
-            { $set: { deleted: true } },
-        );
-        await Product.updateMany(
-            { _id: { $in: ids } },
-            { $set: { deletedAt: new Date() } },
+            {
+                $set: { deleted: true },
+                $push: {
+                    deletedBy: deletedBy,
+                },
+            },
         );
 
         // Flash Messages
@@ -78,11 +111,12 @@ module.exports.changeMulti = async (req, res) => {
     } else if (statusChange === "restore") {
         await Product.updateMany(
             { _id: { $in: ids } },
-            { $set: { deleted: false } },
-        );
-        await Product.updateMany(
-            { _id: { $in: ids } },
-            { $unset: { deletedAt: "" } },
+            {
+                $set: { deleted: false },
+                $push: {
+                    restoredBy: restoredBy,
+                },
+            },
         );
 
         // Flash Messages
@@ -90,7 +124,15 @@ module.exports.changeMulti = async (req, res) => {
     } else if (statusChange === "change-position") {
         for (const item of ids) {
             const [id, position] = item.split("-");
-            await Product.updateOne({ _id: id }, { position: position });
+            await Product.updateOne(
+                { _id: id },
+                {
+                    position: position,
+                    $push: {
+                        editedBy: editedBy,
+                    },
+                },
+            );
         }
 
         // Flash Messages
@@ -101,7 +143,14 @@ module.exports.changeMulti = async (req, res) => {
     } else {
         await Product.updateMany(
             { _id: { $in: ids } },
-            { $set: { status: statusChange } },
+            {
+                $set: {
+                    status: statusChange,
+                },
+                $push: {
+                    editedBy: editedBy,
+                },
+            },
         );
 
         // Flash Messages
@@ -115,8 +164,22 @@ module.exports.changeMulti = async (req, res) => {
 
 // PATCH /delete-product
 module.exports.deleteProduct = async (req, res) => {
-    await Product.updateOne({ _id: req.params.id }, { deleted: true });
-    await Product.updateOne({ _id: req.params.id }, { deletedAt: new Date() });
+    const data = req.body;
+    data.deleted = true;
+
+    const deletedBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        deletedAt: Date.now(),
+    };
+
+    await Product.updateOne(
+        { _id: req.params.id },
+        {
+            ...data,
+            $push: { deletedBy: deletedBy },
+        },
+    );
 
     // Flash Messages
     req.flash("success", `Successfully deleted product`);
@@ -140,11 +203,19 @@ module.exports.createProductPost = async (req, res) => {
     if (data.stock) data.stock = parseInt(data.stock);
 
     if (data.position === "") {
-        const countProduct = await Product.countDocuments();
+        const countProduct = await Product.find({
+            deleted: false,
+        }).countDocuments();
         data.position = countProduct + 1;
     } else {
         data.position = parseInt(data.position);
     }
+
+    data.createdBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        createdAt: Date.now(),
+    };
 
     const product = new Product(data);
     await product.save();
@@ -181,6 +252,12 @@ module.exports.editProductPatch = async (req, res) => {
     const data = req.body;
     const id = req.params.id;
 
+    const editedBy = {
+        fullName: res.locals.user.fullName,
+        id: res.locals.user.id,
+        editedAt: Date.now(),
+    };
+
     if (data.price) data.price = parseInt(data.price);
 
     if (data.stock) data.stock = parseInt(data.stock);
@@ -188,7 +265,15 @@ module.exports.editProductPatch = async (req, res) => {
     if (data.position) data.position = parseInt(data.position);
 
     try {
-        await Product.updateOne({ _id: id }, data);
+        await Product.updateOne(
+            { _id: id },
+            {
+                ...data,
+                $push: {
+                    editedBy: editedBy,
+                },
+            },
+        );
         req.flash("success", `Successfully update the product`);
         res.redirect("back");
     } catch (error) {

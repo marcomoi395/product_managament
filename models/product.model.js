@@ -18,7 +18,35 @@ const productSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
-        deletedAt: Date,
+        createdBy: {
+            fullName: String,
+            id: String,
+            createdAt: {
+                type: Date,
+                default: Date.now(),
+            },
+        },
+        deletedBy: [
+            {
+                fullName: String,
+                id: String,
+                deletedAt: Date,
+            },
+        ],
+        restoredBy: [
+            {
+                fullName: String,
+                id: String,
+                restoredAt: Date,
+            },
+        ],
+        editedBy: [
+            {
+                fullName: String,
+                id: String,
+                editedAt: Date,
+            },
+        ],
     },
     {
         timestamps: true,

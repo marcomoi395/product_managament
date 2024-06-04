@@ -48,7 +48,13 @@ module.exports.loginPost = async (req, res) => {
         return;
     }
 
-    res.cookie("token", user.token);
+    const expiresIn = 31536000;
+
+    res.cookie("token", user.token, {
+        maxAge: Date.now() + expiresIn,
+        httpOnly: true,
+        secure: true,
+    });
     req.flash("success", "Login successfully");
     res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
 };
