@@ -47,10 +47,10 @@ block main
                                 th Title
                                 th.text-center Author
                                 th.text-center Featured
+                                th.text-center Category
                                 th.text-center Price
                                 th.text-center Position
                                 th.text-center Status
-                                th.text-center Created By
                                 th.text-center Edited By
                                 th.text-center Act
                         each item, index in products
@@ -76,6 +76,9 @@ block main
                                         if(item.featured)
                                             svg.bi.bi-check-lg(xmlns='http://www.w3.org/2000/svg', width='16', height='16', fill='currentColor', viewBox='0 0 16 16')
                                                 path(d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z')
+                                    th.text-center
+                                        if(item.categoryDetails)
+                                            p #{item.categoryDetails.title}
                                     td.text-center(class="inner-content") #{item.price}$
                                     td.text-center
                                         if(role.permission.includes("product-edit"))
@@ -89,16 +92,16 @@ block main
                                     td.text-center
                                         if(role.permission.includes("product-edit"))
                                             if(item.status === "active")
-                                                b(class="btn btn-custom status-active" data-status=item.status data-id=item.id button-change-status) Active
+                                                b(class="btn btn-custom status-active" data-status=item.status data-id=item._id button-change-status) Active
                                             else
-                                                b(class="btn btn-custom status-inactive" data-status=item.status data-id=item.id button-change-status) Inactive
+                                                b(class="btn btn-custom status-inactive" data-status=item.status data-id=item._id button-change-status) Inactive
+                                    //td.text-center
+                                    //    if(item.createdBy.fullName !== undefined)
+                                    //        p #{item.createdBy.fullName}
+                                    //        p
+                                    //            +formatDate(item.createdBy.createdAt)
                                     td.text-center
-                                        if(item.createdBy.fullName !== undefined)
-                                            p #{item.createdBy.fullName}
-                                            p
-                                                +formatDate(item.createdBy.createdAt)
-                                    td.text-center
-                                        if(item.editedBy.length > 0)
+                                        if(item.editedBy)
                                             p #{item.editedBy[item.editedBy.length - 1].fullName}
                                             p
                                                 +formatDate(item.editedBy[item.editedBy.length - 1].editedAt)

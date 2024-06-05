@@ -49,6 +49,11 @@ block main
                             .form-check.form-switch(label-margin)
                                 label.form-check-label(for='featured') Featured
                                 input#featured.form-check-input(type='checkbox', role='switch', name='featured')
+                        .col-md-4
+                            label(label-margin for='parent_id') Category
+                            select#parent_id.form-select(name="category_id")
+                                each item in records
+                                    option(value=item.id) #{item.title}
                 .form-group
                     label(label-margin for='description') Description
                     textarea#description(class="form-control tinymce" name='description', rows='3', placeholder='Enter product description')

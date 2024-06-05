@@ -1,8 +1,11 @@
 // GET /admin/products
 const Product = require("../../models/product.model");
+const categoryProduct = require("../../models/category.model");
 const filterStatus = require("../../miscs/filter-status");
 const search = require("../../miscs/search");
 const pagination = require("../../miscs/pagination");
+const sortNameByClass = require("../../miscs/sortNameByClass");
+var mongoose = require("mongoose");
 
 // GET /
 module.exports.index = async (req, res) => {
@@ -31,16 +34,38 @@ module.exports.index = async (req, res) => {
     // Sort
     let sort = {};
     if (req.query.sortKey && req.query.sortValue) {
-        sort[req.query.sortKey] = req.query.sortValue;
+        sort[req.query.sortKey] = req.query.sortValue === "desc" ? -1 : 1;
     } else {
-        sort.position = "desc";
+        sort.position = -1; // Default sort by position in descending order
     }
-
     // Sort END
-    const products = await Product.find(find)
-        .sort(sort)
-        .limit(objectPagination.numberOfProductsPerPage)
-        .skip(objectPagination.skip);
+
+    const products = await Product.aggregate([
+        {
+            $match: find,
+        },
+        {
+            $set: {
+                category_id: { $toObjectId: "$category_id" },
+            },
+        },
+        { $sort: sort },
+        { $skip: objectPagination.skip },
+        { $limit: objectPagination.numberOfProductsPerPage },
+        {
+            $lookup: {
+                from: "category-products",
+                localField: "category_id",
+                foreignField: "_id",
+                as: "categoryDetails",
+            },
+        },
+        {
+            $set: {
+                categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
+            },
+        },
+    ]).exec();
 
     res.render("admin/pages/products/index", {
         pageTitle: "List of products",
@@ -223,8 +248,19 @@ module.exports.deleteProduct = async (req, res) => {
 
 // GET /create
 module.exports.createProduct = async (req, res) => {
+    let find = {
+        deleted: false,
+    };
+
+    const records = await categoryProduct.find(find);
+
+    // sortNameByClass
+    let newRecords = sortNameByClass(records);
+    // sortNameByClass END
+
     res.render("admin/pages/products/create", {
         pageTitle: "Add new product",
+        records: newRecords,
     });
 };
 
@@ -276,9 +312,17 @@ module.exports.editProduct = async (req, res) => {
         };
 
         const product = await Product.findOne(find);
+
+        const category = await categoryProduct.find({ deleted: false });
+
+        // sortNameByClass
+        let newCategory = sortNameByClass(category);
+        // sortNameByClass END
+
         res.render("admin/pages/products/edit", {
             pageTitle: "Edit product",
             product: product,
+            category: newCategory,
         });
     } catch (error) {
         res.redirect("back");
@@ -331,7 +375,15 @@ module.exports.detailProduct = async (req, res) => {
         slug: req.params.slug,
     };
 
-    const product = await Product.findOne(find);
+    const product = await Product.findOne(find).lean();
+
+    const titleCategory = await categoryProduct.findOne({
+        deleted: false,
+        _id: product.category_id,
+    });
+
+    product.titleCategory = titleCategory.title;
+
     product.status = product.status[0].toUpperCase() + product.status.slice(1);
 
     res.render("admin/pages/products/detail", {

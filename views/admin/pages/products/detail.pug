@@ -1,5 +1,6 @@
 extends ../../layout/default
 include ../../mixins/flash-message
+include ../../mixins/format-time
 
 block main
     if(role.permission.includes("product-view"))
@@ -29,6 +30,9 @@ block main
                         li(class="list-group-item")
                             Strong Position:
                             |  #{product.position}
+                        li(class="list-group-item")
+                            Strong Category:
+                            |  #{product.titleCategory  }
                         li(class="list-group-item status-item" data-status=product.status)
                             Strong Status:
                             |  #{product.status}
@@ -40,9 +44,12 @@ block main
                         li(class="list-group-item")
                             Strong Description:
                             |  !{product.description}
-                        li(class="list-group-item")
-                            Strong Created at:
-                            |  #{product.createdAt}
+                        if(product.createdBy)
+                            li(class="list-group-item")
+                                Strong Created by:
+                                |
+                                +formatDateTime(product.createdBy.createdAt)
+                                p #{product.createdBy.fullName}
                     if(role.permission.includes("product-edit"))
                         a(class="btn btn-outline-dark button-in-detail", href=`${prefixAdmin}/products/edit/${product._id}`) Edit
     script(src="/admin/js/product.js")
