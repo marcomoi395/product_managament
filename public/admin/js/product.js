@@ -89,6 +89,7 @@ if (formChangeStatusMulti) {
             });
 
             inputIds.value = ids.join(", ");
+            console.log(ids.join(", "));
             formChangeStatusMulti.submit();
         } else if (statusSelect.value === "Select") {
             alert("Select the appropriate status");

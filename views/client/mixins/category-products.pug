@@ -1,0 +1,7 @@
+mixin category-products(category)
+    ul
+        each item in category
+            li
+                a(href=`/products/${item.slug}`) #{item.title}
+                    if(item.child && item.child.length > 0)
+                        +category-products(item.child)

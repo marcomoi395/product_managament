@@ -1,4 +1,20 @@
 extends ../../layout/default
+include ../../mixins/box-head
 
 block main
-    h1 Homepage
+    .container
+        .row
+            .col-12
+                +box-head("Featured")
+
+        .row
+            each item in products
+                .col-3.mb-lg-5
+                    .product-item
+                        .inner-image
+                            img(src=item.thumbnail
+                            , alt=item.title)
+                        .inner-content
+                            .inner-title #{item.title}
+                            .inner-author #{item.author}
+                            .inner-price #{item.price}$

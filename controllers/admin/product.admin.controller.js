@@ -5,7 +5,6 @@ const filterStatus = require("../../miscs/filter-status");
 const search = require("../../miscs/search");
 const pagination = require("../../miscs/pagination");
 const sortNameByClass = require("../../miscs/sortNameByClass");
-var mongoose = require("mongoose");
 
 // GET /
 module.exports.index = async (req, res) => {

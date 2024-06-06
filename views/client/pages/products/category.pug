@@ -3,12 +3,13 @@ include ../../mixins/box-head
 include ../../../admin/mixins/filter-status
 include ../../../admin/mixins/search
 include ../../../admin/mixins/sort
+include ../../../admin/mixins/pagination
 
 block main
     .container
         .row
             .col-12
-                +box-head("")
+                +box-head(pageTitle)
 
         .card.mb-3(font-setting)
             .card-header Filters and Search

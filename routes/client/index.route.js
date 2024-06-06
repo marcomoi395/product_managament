@@ -1,8 +1,11 @@
 const productRouter = require("./product.route");
 const homeRouter = require("./home.route");
+const headerDataMiddleware = require("../../middlewares/client/headerData.middleware");
 
 module.exports = (app) => {
-  app.use("/", homeRouter);
+    app.use(headerDataMiddleware);
 
-  app.use("/products", productRouter);
+    app.use("/", homeRouter);
+
+    app.use("/products", productRouter);
 };
