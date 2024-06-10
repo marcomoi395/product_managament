@@ -1,0 +1,25 @@
+extends ../../layout/login
+include ../../mixins/box-head
+include ../../../admin/mixins/filter-status
+include ../../../admin/mixins/search
+include ../../../admin/mixins/sort
+include ../../../admin/mixins/pagination
+include ../../../admin/mixins/flash-message
+
+block main
+    +flash-message-success(2000)
+    +flash-message-error(2000)
+    section(class='p-3 p-md-4 p-xl-5')
+        .row
+            .col-3
+            .col-6.bsb-tpl-bg-lotion
+                .p-3.p-md-4.p-xl-5
+                    .row
+                        .col-12
+                            .mb-5
+                                h2.h3 Check your Email
+                                h3.fs-6.fw-normal.text-secondary.m-0 We have sent a reset password to your email address.
+                    .rows
+                        .col-12
+                            hr.mt-5.border-secondary-subtle
+                            p.m-0.text-secondary.text-end

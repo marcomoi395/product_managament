@@ -1,13 +1,16 @@
 include ../../client/mixins/category-products
+include ../../admin/mixins/search
 
 header.header
     .container
-        .row
-            .col-6
+        .row.align-items-center
+            .col-2
                 .inner-logo
                     a(href="/")
                         img(src="/images/Logo.jpg", alt="Logo")
-            .col-6
+            .col-4
+                +search
+            .col-4
                 .inner-menu
                     nav.primary-navigation(role='navigation')
                         ul(style="margin: 0px;")
@@ -17,16 +20,17 @@ header.header
                                 a(href='/products') Products
                                     +category-products(category)
 
-                            //ul
-                            //    li
-                            //        a(href='/') Dashboard
-                            //        ul
-                            //            li
-                            //                a(href='/') Dashboard
-                            //            li
-                            //                a(href='/') Dashboard
-                            //
-                            //    li
-                            //        a(href='/') Dashboard
-                            //    li
-                            //        a(href='/') Dashboard
+            .col-2.ml-auto.text-right
+                if(user)
+                    .btn-group
+                        a.btn.btn-danger(href="user/logout") Logout
+                        button.btn.btn-danger.dropdown-toggle.dropdown-toggle-split(type='button', data-bs-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                            span.sr-only
+                        .dropdown-menu
+                            a.dropdown-item(href='#') Profile
+                            a.dropdown-item(href='#') Settings
+                            .dropdown-divider
+                            a.dropdown-item(href='user/logout') Logout
+                else
+                    .btn
+                        a.btn.btn-primary(href="user/login") Login

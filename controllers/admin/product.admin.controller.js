@@ -369,23 +369,31 @@ module.exports.editProductPatch = async (req, res) => {
 
 // GET /detail
 module.exports.detailProduct = async (req, res) => {
-    let find = {
-        deleted: false,
-        slug: req.params.slug,
-    };
+    try {
+        let find = {
+            deleted: false,
+            slug: req.params.slug,
+        };
 
-    const product = await Product.findOne(find).lean();
+        const product = await Product.findOne(find).lean();
 
-    const titleCategory = await categoryProduct.findOne({
-        deleted: false,
-        _id: product.category_id,
-    });
+        const titleCategory = await categoryProduct.findOne({
+            deleted: false,
+            _id: product.category_id,
+        });
 
-    product.titleCategory = titleCategory.title;
+        if (titleCategory) {
+            product.titleCategory = titleCategory.title;
+        }
 
-    product.status = product.status[0].toUpperCase() + product.status.slice(1);
+        product.status =
+            product.status[0].toUpperCase() + product.status.slice(1);
 
-    res.render("admin/pages/products/detail", {
-        product: product,
-    });
+        res.render("admin/pages/products/detail", {
+            product: product,
+        });
+    } catch (e) {
+        req.flash("error", `Error, please try again`);
+        res.redirect("/admin/products");
+    }
 };

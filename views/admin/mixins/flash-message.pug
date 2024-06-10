@@ -1,7 +1,7 @@
 mixin flash-message-success(time)
     if (messages.success)
         .message.success
-            .alert.alert-dismissible(class='alert-info', role='alert' show-alert data-time=time)
+            .alert.alert-dismissible(class='alert-info', role='alert' show-alert data-time=time style="position: fixed;")
                 div #{messages.success}
                 button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
 
@@ -9,6 +9,6 @@ mixin flash-message-success(time)
 mixin flash-message-error(time)
     if (messages.error)
         .message.error
-            .alert.alert-dismissible(class='alert-danger', role='alert' show-alert data-time=time)
+            .alert.alert-dismissible(class='alert-danger', role='alert' show-alert data-time=time style="position: fixed;")
                 div #{messages.error}
                 button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')

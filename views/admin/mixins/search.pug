@@ -1,15 +1,17 @@
 mixin search(title)
-    form(id="form-search")
+    form(id="form-search" form-search)
         .input-group
             input(
                 type="text"
                 placeholder="Enter search keywords"
                 name="keyword"
-                class="form-control"
+                class="form-control custom-input"
                 value=title
+                input-search
             )
-            .input-group-text
+            .input-group-text.custom-input-group-text
                 button(
-                    class="btn btn-light"
+                    class="btn btn-light custom-button"
                     type="submit"
+                    button-search
                 ) Find

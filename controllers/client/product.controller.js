@@ -36,7 +36,38 @@ module.exports.index = async (req, res) => {
         }
         // Sort END
 
-        const products = await Product.find(find).sort(sort);
+        const products = await Product.aggregate([
+            {
+                $match: find,
+            },
+            {
+                $set: {
+                    category_id: { $toObjectId: "$category_id" },
+                },
+            },
+            { $sort: sort },
+            {
+                $lookup: {
+                    from: "category-products",
+                    localField: "category_id",
+                    foreignField: "_id",
+                    as: "categoryDetails",
+                },
+            },
+            {
+                $set: {
+                    categoryDetails: { $arrayElemAt: ["$categoryDetails", 0] },
+                },
+            },
+            {
+                $project: {
+                    createdBy: 0, // Bao gồm _id
+                    editedBy: 0, // Bao gồm trường name
+                    deletedBy: 0, // Bao gồm category_id
+                    restoredBy: 0, // Bao gồm thông tin về category
+                },
+            },
+        ]).exec();
 
         res.render("client/pages/products/index", {
             pageTitle: "Products",
@@ -99,10 +130,44 @@ module.exports.productsByCategory = async (req, res) => {
         res.render("client/pages/products/category", {
             pageTitle: category.title,
             products: products,
+            slugCategory: slug,
             filterStatus: filterStatus(req),
             title: search(req).keyword,
         });
     } catch (e) {
         res.redirect(`/products`);
+    }
+};
+
+// GET /detail
+module.exports.detailProduct = async (req, res) => {
+    try {
+        res.send(req.params);
+        // console.log(req.params);
+        // let find = {
+        //     deleted: false,
+        //     slug: req.params.slugProduct,
+        // };
+        //
+        // const product = await Product.findOne(find).lean();
+        //
+        // const titleCategory = await categoryProduct.findOne({
+        //     deleted: false,
+        //     _id: product.category_id,
+        // });
+        //
+        // if (titleCategory) {
+        //     product.titleCategory = titleCategory.title;
+        // }
+        //
+        // product.status =
+        //     product.status[0].toUpperCase() + product.status.slice(1);
+        //
+        // res.render("admin/pages/products/detail", {
+        //     product: product,
+        // });
+    } catch (e) {
+        req.flash("error", `Error, please try again`);
+        res.redirect("/admin/products");
     }
 };

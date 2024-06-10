@@ -1,0 +1,56 @@
+extends ../../layout/login
+include ../../mixins/box-head
+include ../../../admin/mixins/filter-status
+include ../../../admin/mixins/search
+include ../../../admin/mixins/sort
+include ../../../admin/mixins/pagination
+include ../../../admin/mixins/flash-message
+
+block main
+    +flash-message-success(2000)
+    +flash-message-error(2000)
+    section(class='p-3 p-md-4 p-xl-4')
+        .container
+            .row
+                .col-12.col-md-6.bsb-tpl-bg-platinum.pt-5
+                    .d-flex.flex-column.justify-content-between.h-100.p-3.p-md-4.p-xl-5
+                        h3.m-0 Welcome!
+                        img.img-fluid.rounded.mx-auto.my-4(loading='lazy', src='https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/176510104/original/9e1c3c2bb5cbec609deb1bc727142e09064dd31b/professionally-design-your-album-cover-art-or-music-artwork.jpg', width='245', height='80')
+                        p
+                            a.link-secondary.text-decoration-none(href='')
+                .col-12.col-md-6.bsb-tpl-bg-lotion
+                    .p-3.p-md-4.p-xl-5
+                        .row
+                            .col-12
+                                .mb-5
+                                    h2.h3 Registration
+                                    h3.fs-6.fw-normal.text-secondary.m-0 Enter your details to register
+                        form(
+                            action=`register?_method=POST`,
+                            method='POST'
+                        )
+                            .row.gy-3.gy-md-4.overflow-hidden
+                                .col-12
+                                    label.form-label(for='firstName')
+                                        | Full Name
+                                        span.text-danger *
+                                    input#firstName.form-control(type='text', name='fullName', placeholder='First Name', required='')
+                                .col-12
+                                    label.form-label(for='email')
+                                        | Email
+                                        span.text-danger *
+                                    input#email.form-control(type='email', name='email', placeholder='name@example.com', required='')
+                                .col-12
+                                    label.form-label(for='password')
+                                        | Password
+                                        span.text-danger *
+                                    input#password.form-control(type='password', name='password', value='', required='')
+                                .col-12
+                                    .d-grid
+                                        button.btn.bsb-btn-xl.btn-primary(type='submit') Sign up
+                        .row
+                            .col-12
+                                hr.mt-5.border-secondary-subtle
+                                p.m-0.text-secondary.text-end
+                                    | Already have an account?
+                                    a.link-primary.text-decoration-none(href='login')  Sign in

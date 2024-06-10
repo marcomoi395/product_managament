@@ -23,10 +23,12 @@ if (buttonStatus.length > 0) {
 //Form Search
 const formSearch = document.querySelector("#form-search");
 if (formSearch) {
-    let url = new URL(window.location.href);
+
 
     formSearch.addEventListener("submit", (event) => {
         event.preventDefault();
+        let url = new URL(window.location.href);
+        url.href = `${url.origin}/products`;
         let keyword = event.target.elements.keyword.value;
 
         if (keyword) {
@@ -34,6 +36,7 @@ if (formSearch) {
         } else {
             url.searchParams.delete("keyword");
         }
+        console.log(url.href);
 
         window.location.href = url.href;
     });
@@ -89,3 +92,18 @@ if (sort) {
     });
 }
 // Sort End
+
+// Flash Message Alert
+const flashMessage = document.querySelector("[show-alert]");
+if (flashMessage) {
+    const dataTime = parseInt(flashMessage.getAttribute("data-time"));
+
+    setTimeout(() => {
+        flashMessage.classList.add("alert-hidden");
+
+        // Delete
+        let parent = flashMessage.parentNode;
+        parent.removeChild(flashMessage);
+    }, dataTime);
+}
+// Flash Message Alert END

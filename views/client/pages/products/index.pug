@@ -36,12 +36,15 @@ block main
             .card-body
                 .row
                     each item in products
+
                         .col-3.mb-lg-5
                             .product-item
                                 .inner-image
-                                    img(src=item.thumbnail
-                                    , alt=item.title)
+                                    a(href=`/products/${item.categoryDetails.slug}/${item.slug}` style="text-decoration: none;color: inherit;")
+                                        img(src=item.thumbnail
+                                        , alt=item.title)
                                 .inner-content
-                                    .inner-title #{item.title}
+                                    a(href=`/products/${item.categoryDetails.slug}/${item.slug}` style="text-decoration: none;color: inherit;")
+                                        .inner-title #{item.title}
                                     .inner-author #{item.author}
                                     .inner-price #{item.price}$
